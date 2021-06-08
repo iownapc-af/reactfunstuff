@@ -11,7 +11,7 @@ const fillGameMap = (map) => {
       map[y][x] = '#';
       if (y > 0 && y < map.length - 1) {
         if (x > 0 && x < map[0].length - 1) {
-          map[y][x] = '.';
+          map[y][x] = '';
         }
       }
     }
@@ -20,41 +20,55 @@ const fillGameMap = (map) => {
   return map;
 }
 
+function init(playerCoords, map) {
+  map[playerCoords[0]][playerCoords[1]] = '@';
+}
+
 const App = () => {
-  const gameMap = createGameMap(10, 25);
-  const [state, setState] = useState(gameMap);
+  const map = createGameMap(10, 25);
+  const [playerPosition, setPlayerPosition] = useState([5, 5]);
+  const [gameMap, setGameMap] = useState(map);
   const [keyDown, setKeyDown] = useState(null);
-
   
+  init(playerPosition, gameMap);
+
   useEffect(() => {
-    document.addEventListener('keydown', (e)=>{
-      console.log("onkeydown:", e);
-      setKeyDown(e);
+    document.addEventListener('keydown', (e) => {
+      console.log(e.key);
+      setKeyDown(e.key);
     });
 
-    document.addEventListener('keyup', (e)=>{
-      console.log('onkeyup');
-      setKeyDown(null);
-    });
+    // document.addEventListener('keyup', (e) => {
+    //   setKeyDown(null);
+    // })
 
     setInterval(() => {
       movement();
     }, 500);
   }, []);
 
+  // handle what happens after keypress
   const movement = () => {
-    
-    if (keyDown !== null)
-      console.log(keyDown);
+    if (keyDown != null) {
+      console.log("test");
+      if (keyDown === 'd') { // right
+        setPlayerPosition([playerPosition[0], playerPosition[1]-1]);
+        console.log(playerPosition);
+      }
+      // console.log(key);
+    }
+
+    // setKeyDown(null);
   }
 
+  // Display
   return (
     <div className="wrapper">
       <div className="gameMap">
-        {state.map((item) => (
+        {gameMap.map((item) => (
           <div className="row" key={item.id}>
             {Object.values(item).map((val) => (
-              <div className="cell ${val == '#' ? 'wall' : 'empty'}">{val}</div>
+              <div className={val == '#' ? 'cell wall' : 'cell empty'}>{val}</div>
             ))}
           </div>
         ))}
@@ -64,3 +78,16 @@ const App = () => {
 }
 
 export default App;
+
+/*
+keydown { target: body
+, key: "d", charCode: 0, keyCode: 68 }
+App.js:37
+keydown { target: body
+, key: "a", charCode: 0, keyCode: 65 }
+App.js:37
+keydown { target: body
+, key: "w", charCode: 0, keyCode: 87 }
+App.js:37
+keydown { target: body, key: "s", charCode: 0, keyCode: 83 }
+*/
