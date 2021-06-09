@@ -24,41 +24,66 @@ function init(playerCoords, map) {
   map[playerCoords[0]][playerCoords[1]] = '@';
 }
 
+let keyDown = null;
+const setKeyDown = (key) => {
+  keyDown = key;
+}
+
+let playerPosition = [5, 5];
+const setPlayerPosition = (position) => {
+  playerPosition = position;
+}
+
 const App = () => {
   const map = createGameMap(10, 25);
-  const [playerPosition, setPlayerPosition] = useState([5, 5]);
+  // const [playerPosition, setPlayerPosition] = useState([5, 5]);
   const [gameMap, setGameMap] = useState(map);
-  const [keyDown, setKeyDown] = useState(null);
+  const [renderToggle, setRenderToggle] = useState(false);
+  // const [keyDown, setKeyDown] = useState(null);
   
   init(playerPosition, gameMap);
 
+  console.log("render")
   useEffect(() => {
+    console.log("in useeffect")
+    addListeners();
+    setInterval(() => {
+      if (keyDown !== null)
+        movement();
+    }, 500);
+  return () => (removeListener());
+  
+  }, [renderToggle]);
+
+  const addListeners = () => {
     document.addEventListener('keydown', (e) => {
-      console.log(e.key);
-      setKeyDown(e.key);
+      setKeyDown(e);
     });
 
-    // document.addEventListener('keyup', (e) => {
-    //   setKeyDown(null);
-    // })
+    document.addEventListener('keyup', (e) => {
+      setKeyDown(null);
+    })
+  }
 
-    setInterval(() => {
-      movement();
-    }, 500);
-  }, []);
+  const removeListener = () => {
+    document.removeEventListener('keydown', (e) => {
+      setKeyDown(e);
+    });
+
+    document.removeEventListener('keyup', (e) => {
+      setKeyDown(null);
+    })
+  }
 
   // handle what happens after keypress
   const movement = () => {
-    if (keyDown != null) {
-      console.log("test");
-      if (keyDown === 'd') { // right
-        setPlayerPosition([playerPosition[0], playerPosition[1]-1]);
-        console.log(playerPosition);
-      }
-      // console.log(key);
-    }
+    console.log(keyDown);
+    setRenderToggle(!renderToggle);
 
-    // setKeyDown(null);
+    if (keyDown.key === 'd') { // right
+      setPlayerPosition([playerPosition[0], playerPosition[1]-1]);
+      console.log(playerPosition);
+    }
   }
 
   // Display
@@ -68,7 +93,7 @@ const App = () => {
         {gameMap.map((item) => (
           <div className="row" key={item.id}>
             {Object.values(item).map((val) => (
-              <div className={val == '#' ? 'cell wall' : 'cell empty'}>{val}</div>
+              <div className={val === '#' ? 'cell wall' : 'cell empty'}>{val}</div>
             ))}
           </div>
         ))}
