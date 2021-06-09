@@ -26,6 +26,6 @@ html { font-family: "Courier New", Courier, monospace; }
     height: 23px;
 }
 
-/* .wall {} */
+.wall { background-color: rgb(41, 41, 41); color: rgb(41, 41, 41); }
 
 /* .empty {} */

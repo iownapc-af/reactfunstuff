@@ -43,9 +43,7 @@ const App = () => {
   
   init(playerPosition, gameMap);
 
-  console.log("render")
   useEffect(() => {
-    console.log("in useeffect")
     addListeners();
     setInterval(() => {
       if (keyDown !== null)
@@ -56,23 +54,13 @@ const App = () => {
   }, [renderToggle]);
 
   const addListeners = () => {
-    document.addEventListener('keydown', (e) => {
-      setKeyDown(e);
-    });
-
-    document.addEventListener('keyup', (e) => {
-      setKeyDown(null);
-    })
+    document.addEventListener('keydown', (e) => { setKeyDown(e); });
+    document.addEventListener('keyup', (e) => { setKeyDown(null); });
   }
 
   const removeListener = () => {
-    document.removeEventListener('keydown', (e) => {
-      setKeyDown(e);
-    });
-
-    document.removeEventListener('keyup', (e) => {
-      setKeyDown(null);
-    })
+    document.removeEventListener('keydown', (e) => { setKeyDown(e); });
+    document.removeEventListener('keyup', (e) => { setKeyDown(null); });
   }
 
   // handle what happens after keypress
@@ -80,10 +68,14 @@ const App = () => {
     console.log(keyDown);
     setRenderToggle(!renderToggle);
 
-    if (keyDown.key === 'd') { // right
+    if (keyDown.key === 'w')
+      setPlayerPosition([playerPosition[0]-1, playerPosition[1]]);
+    if (keyDown.key === 's')
+      setPlayerPosition([playerPosition[0]+1, playerPosition[1]]);
+    if (keyDown.key === 'a') // left
       setPlayerPosition([playerPosition[0], playerPosition[1]-1]);
-      console.log(playerPosition);
-    }
+    if (keyDown.key === 'd') // right
+      setPlayerPosition([playerPosition[0], playerPosition[1]+1]);
   }
 
   // Display
