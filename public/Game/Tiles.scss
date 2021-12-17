@@ -1,0 +1,84 @@
+.tile {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+}
+
+.player {
+  background: url("../res/Airman.gif");
+  background-size: 20px;
+}
+
+.tree {
+  background: url("../res/tree.png") no-repeat center;
+  background-size: cover;
+  transform: scale(3) translate(0px, -7px);
+}
+
+.boulder {
+  background: url("../res/boulder.svg") no-repeat;
+  background-size: cover;
+}
+
+// .tree1 {
+//   background: url("./res/tree2.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .tree2 {
+//   background: url("./res/tree3.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .tree3 {
+//   background: url("./res/tree4.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .wall {
+//   background: url("./res/wall.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .door {
+//   background: url("./res/door.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .grass {
+//   background: url("./res/grass.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .flower {
+//   background: url("./res/flower.png") no-repeat;
+//   background-size: 20px;
+// }
+
+// .gorilla {
+//   height: 20px;
+//   width: 20px;
+
+//   background: url("./res/dad.png") no-repeat;
+//   background-size: 20px;
+//   // animation: pop2 0.5s infinite;
+// }
+
+// .squid {
+//   height: 20px;
+//   width: 20px;
+
+//   background: url("./res/squidgames.png") no-repeat;
+//   background-size: 20px;
+//   // animation: pop3 0.9s infinite;
+// }
+
+// .frog {
+//   height: 20px;
+//   width: 20px;
+
+//   background: url("./res/tutle.png") no-repeat;
+//   background-size: 20px;
+//   // animation: pop 0.7s infinite;
+// }
