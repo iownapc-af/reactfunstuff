@@ -1,31 +1,13 @@
-html { font-family: "Courier New", Courier, monospace; }
-
-.wrapper {
-    display: block;
-    background-color: #595a5e2c;
-    /* width: 640px; */
-    height: 480px;
-    margin: 50px auto 0 auto;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.gameMap {
-    display: block;
-    /* width: 575px; */
-    height: 100%;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
-
-.row {
-    display: flex;
-    width: auto;
-    /* margin: 6px 0; */
-}
-
-.cell {
-    display: inline-block;
-    width: 23px;
-    height: 23px;
-}
-
-.wall { background-color: rgb(41, 41, 41); color: rgb(41, 41, 41); }
-
-/* .empty {} */

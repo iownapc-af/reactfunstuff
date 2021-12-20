@@ -33,7 +33,7 @@ export const defaultState: State = {
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
-      '#             MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM           #'.split(''),
+      '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),

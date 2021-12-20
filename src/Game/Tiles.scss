@@ -3,11 +3,12 @@
   width: 20px;
   height: 20px;
   background-color: black;
+  transform: scale(2);
 }
 
 .player {
   background: url("../res/Airman.gif");
-  background-size: 20px;
+  background-size: 40px;
 }
 
 .tree {

@@ -1,10 +1,7 @@
 import { AppState } from '../..';
 import { useAppSelector } from '../../Store/AppState';
 
-interface WorldProps {
-  cameraPositionLeft: number;
-  cameraPositionTop: number;
-}
+interface WorldProps {}
 
 const World = (props: WorldProps) => {
   const player = useAppSelector((state: AppState) => state.player);
@@ -51,30 +48,24 @@ const World = (props: WorldProps) => {
     }
   };
 
-  // 21 ^
-  // 31 <>
-  /*
-
-    31 - cLeft = right
-    
-    while indexY < cTop && indexX > 21 - cTop
-    while indexX < cLeft && indexX > 31 - cLeft
-  */
-
   const renderX = (indexY: number, row: string[]) => {
     return (
       <div className="gridRow" key={`${indexY - 1}`}>
         {row.map((column: unknown, indexX: number) => {
-          if (player.xCoordinate < 15) {
-            while (indexX < 31) {
+          if (gameWorld[player.map][indexY].length < 34 || player.xCoordinate < 15) {
+            while (indexX < 34) {
               return mapGridType(indexX, indexY, player.map);
             }
-          } else if (player.xCoordinate > 53) {
-            while (indexX > 38) {
+          } else if (player.xCoordinate > gameWorld[player.map][indexY].length - 15) {
+            while (indexX > gameWorld[player.map][indexY].length / 2 - 1) {
+              console.log('2');
               return mapGridType(indexX, indexY, player.map);
             }
           } else {
-            while (indexX > player.xCoordinate - 15 && indexX < player.xCoordinate + 53) {
+            while (
+              indexX > player.xCoordinate - 15 &&
+              indexX < gameWorld[player.map][indexY].length / 2
+            ) {
               return mapGridType(indexX, indexY, player.map);
             }
           }
@@ -87,12 +78,12 @@ const World = (props: WorldProps) => {
     return (
       <>
         {gameWorld[player.map]?.map((row, indexY) => {
-          if (player.yCoordinate < 10) {
+          if (gameWorld[player.map].length < 21 || player.yCoordinate < 10) {
             while (indexY < 20) {
               return renderX(indexY, row);
             }
-          } else if (player.yCoordinate > 30) {
-            while (indexY > 20) {
+          } else if (player.yCoordinate > gameWorld[player.map].length - 10) {
+            while (indexY > gameWorld[player.map].length / 2) {
               return renderX(indexY, row);
             }
           } else {
