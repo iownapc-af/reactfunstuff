@@ -87,15 +87,24 @@ const Movement = (entities: any, { input }: any) => {
     },
   };
 
+  const setAnimation = () => {
+    const player = document.getElementById('players');
+    player?.classList.add('moving');
+    setTimeout(() => {
+      player?.classList.remove('moving');
+    }, 1000);
+  }
+
   if (payload) {
     const updatedGameWorld = gameWorld;
     updatedGameWorld[map][playerY][playerX] = ' ';
 
     switch (payload.key) {
-      case 'w':
+    case 'w':
       case 'ArrowUp':
         playerDirection = 'north';
         if (isValidMove(playerX, playerY - 1)) {
+          setAnimation();
           playerY -= 1;
         }
         break;
@@ -103,7 +112,7 @@ const Movement = (entities: any, { input }: any) => {
       case 'ArrowDown':
         playerDirection = 'south';
         if (isValidMove(playerX, playerY + 1)) {
-          // playerAction.y += 1;
+          setAnimation();
           playerY += 1;
         }
         break;
@@ -111,6 +120,7 @@ const Movement = (entities: any, { input }: any) => {
       case 'ArrowLeft':
         playerDirection = 'west';
         if (isValidMove(playerX - 1, playerY)) {
+          setAnimation();          
           playerX -= 1;
         }
         break;
@@ -118,6 +128,7 @@ const Movement = (entities: any, { input }: any) => {
       case 'ArrowRight':
         playerDirection = 'east';
         if (isValidMove(playerX + 1, playerY)) {
+          setAnimation();          
           playerX += 1;
         }
         break;
@@ -130,6 +141,9 @@ const Movement = (entities: any, { input }: any) => {
           if (door[0] !== undefined) {
             map = door[0].newRoomIndex;
             store.dispatch({ type: 'UPDATE_PLAYER_MAP', updatePlayerMap: map });
+            playerX = door[0].newPlayerCoords[0];
+            playerY = door[0].newPlayerCoords[1];
+            break;
           }
         }
         isMoveableObject(playerDirection);

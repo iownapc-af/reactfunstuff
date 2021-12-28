@@ -1,20 +1,174 @@
 .tile {
-  position: absolute;
-  width: 20px;
-  height: 20px;
   background-color: black;
   transform: scale(2);
 }
 
 .player {
-  background: url("../res/Airman.gif");
-  background-size: 40px;
+  min-width: 40px;
 }
 
+.players {
+  width: 27px;
+  height: 40px;
+  margin: auto;
+}
+
+.south {
+  background: url("../res/player/player_south_1.svg") no-repeat no-repeat;
+  background-size: 100%;
+  width: 27px;
+  height: 40px;
+
+  .moving {
+    animation: walkSouthAnimation 0.5s steps(1) infinite;
+  }
+}
+
+.east {
+  background: url("../res/player/player_east_1.svg") no-repeat no-repeat;
+  background-size: 100%;
+  width: 27px;
+  height: 40px;
+
+  .moving {
+    animation: walkEastAnimation 0.5s steps(1) infinite;
+  }
+}
+
+.north {
+  background: url("../res/player/player_north_1.svg") no-repeat no-repeat;
+  background-size: 100%;
+  width: 27px;
+  height: 40px;
+
+  .moving {
+    animation: walkNorthAnimation 0.5s steps(1) infinite;
+  }
+}
+
+.west {
+  background: url("../res/player/player_west_1.svg") no-repeat no-repeat;
+  background-size: 100%;
+  width: 27px;
+  height: 40px;
+
+  .moving {
+    animation: walkWestAnimation 0.5s steps(1) infinite;
+  }
+}
+
+// .player[moving="true"] .players {
+//   animation: walkWestAnimation 1s steps(1) infinite;
+// }
+
+@keyframes walkWestAnimation {
+  0% {
+    background: url("../res/player/player_west_1.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  25% {
+    background: url("../res/player/player_west_2.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  50% {
+    background: url("../res/player/player_west_3.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  75% {
+    background: url("../res/player/player_west_4.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+}
+@keyframes walkEastAnimation {
+  0% {
+    background: url("../res/player/player_east_1.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  25% {
+    background: url("../res/player/player_east_2.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  50% {
+    background: url("../res/player/player_east_3.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  75% {
+    background: url("../res/player/player_east_4.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+}
+@keyframes walkSouthAnimation {
+  0% {
+    background: url("../res/player/player_south_1.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  25% {
+    background: url("../res/player/player_south_2.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  50% {
+    background: url("../res/player/player_south_3.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  75% {
+    background: url("../res/player/player_south_4.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+}
+@keyframes walkNorthAnimation {
+  0% {
+    background: url("../res/player/player_north_1.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  25% {
+    background: url("../res/player/player_north_2.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  50% {
+    background: url("../res/player/player_north_3.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+  75% {
+    background: url("../res/player/player_north_4.svg") no-repeat no-repeat;
+    background-size: 100%;
+    width: 25px;
+    height: 40px;
+  }
+}
 .tree {
   background: url("../res/tree.png") no-repeat center;
   background-size: cover;
-  transform: scale(3) translate(0px, -7px);
+  transform: scale(2) translate(0px, -15px);
 }
 
 .boulder {

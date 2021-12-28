@@ -11,7 +11,12 @@ const World = (props: WorldProps) => {
     let classString = gridclass;
 
     if (gridclass === 'player') {
-      classString = `${gridclass} ${player.direction}`;
+      classString = `${gridclass}`;
+      return (
+        <div className={`${classString}`} id={`${indexX},${indexY},${worldIndex}`}>
+          <div className={`players ${player.direction}`} id="players"></div>{' '}
+        </div>
+      );
     }
 
     return (
@@ -56,15 +61,14 @@ const World = (props: WorldProps) => {
             while (indexX < 34) {
               return mapGridType(indexX, indexY, player.map);
             }
-          } else if (player.xCoordinate > gameWorld[player.map][indexY].length - 15) {
-            while (indexX > gameWorld[player.map][indexY].length / 2 - 1) {
-              console.log('2');
+          } else if (player.xCoordinate > gameWorld[player.map][indexY].length - 20) {
+            while (indexX > gameWorld[player.map][indexY].length - 35) {
               return mapGridType(indexX, indexY, player.map);
             }
           } else {
             while (
               indexX > player.xCoordinate - 15 &&
-              indexX < gameWorld[player.map][indexY].length / 2
+              indexX < gameWorld[player.map][indexY].length
             ) {
               return mapGridType(indexX, indexY, player.map);
             }
