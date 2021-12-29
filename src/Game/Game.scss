@@ -46,7 +46,9 @@
 }
 
 .enemy {
-  background-color: red;
+  background: url("../res/BinaryMonster.gif") no-repeat;
+  background-size: cover;
+  // background-color: red;
 }
 
 .movable {

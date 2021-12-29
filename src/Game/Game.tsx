@@ -7,6 +7,8 @@ import './Game.scss';
 import './Tiles.scss';
 
 export default class ReactGame extends PureComponent {
+  // start npc movement 
+
   render() {
     return (
       <div className="game-render-wrapper">

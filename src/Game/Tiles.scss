@@ -7,7 +7,7 @@
   min-width: 40px;
 }
 
-.players {
+.player-image {
   width: 27px;
   height: 40px;
   margin: auto;
@@ -52,11 +52,11 @@
   width: 27px;
   height: 40px;
 
-  .moving {
-    animation: walkWestAnimation 0.5s steps(1) infinite;
-  }
 }
 
+.player-image .west .moving {
+  animation: walkWestAnimation 0.5s steps(1) infinite;
+}
 // .player[moving="true"] .players {
 //   animation: walkWestAnimation 1s steps(1) infinite;
 // }

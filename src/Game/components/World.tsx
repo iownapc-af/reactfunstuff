@@ -1,9 +1,8 @@
 import { AppState } from '../..';
 import { useAppSelector } from '../../Store/AppState';
+import { npcList } from './Npcs';
 
-interface WorldProps {}
-
-const World = (props: WorldProps) => {
+const World = () => {
   const player = useAppSelector((state: AppState) => state.player);
   const gameWorld = useAppSelector((state: AppState) => state.overworld);
 
@@ -14,7 +13,7 @@ const World = (props: WorldProps) => {
       classString = `${gridclass}`;
       return (
         <div className={`${classString}`} id={`${indexX},${indexY},${worldIndex}`}>
-          <div className={`players ${player.direction}`} id="players"></div>{' '}
+          <div className={`player-image ${player.direction}`} id="player" />{' '}
         </div>
       );
     }
