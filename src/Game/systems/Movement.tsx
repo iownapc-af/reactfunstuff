@@ -14,35 +14,45 @@ const Movement = (entities: any, { input }: any) => {
   let playerY = store.getState().player.yCoordinate;
   let playerDirection = store.getState().player.direction;
   // eslint-disable-next-line prefer-destructuring
-  let map = store.getState().player.map;
+  let currentGameWorld = store.getState().player.map;
 
   const returnMapTile = (index: number, indexY: number, indexX: number) => {
     return gameWorld[index][indexY][indexX];
   };
 
   const isValidMove = (newPlayerX: number, newPlayerY: number) => {
-    return gameWorld[map][newPlayerY][newPlayerX] === ' ';
+    return gameWorld[currentGameWorld][newPlayerY][newPlayerX] === ' ';
+  };
+
+  const isNpcContact = (newPlayerX: number, newPlayerY: number) => {
+    return gameWorld[currentGameWorld][newPlayerY][newPlayerX] === 'x';
+  };
+
+  const sendPlayerToCombat = () => {
+    [playerX, playerY] = [2, 2];
+    playerDirection = 'east';
+    currentGameWorld = 3;
   };
 
   const isMoveableObject = (objectDirection: string) => {
     switch (objectDirection) {
       case 'north':
-        if (gameWorld[map][playerY - 1][playerX] === 'M') {
+        if (gameWorld[currentGameWorld][playerY - 1][playerX] === 'M') {
           moveObject(playerX, playerY - 1, playerX, playerY - 2);
         }
         break;
       case 'south':
-        if (gameWorld[map][playerY + 1][playerX] === 'M') {
+        if (gameWorld[currentGameWorld][playerY + 1][playerX] === 'M') {
           moveObject(playerX, playerY + 1, playerX, playerY + 2);
         }
         break;
       case 'east':
-        if (gameWorld[map][playerY][playerX + 1] === 'M') {
+        if (gameWorld[currentGameWorld][playerY][playerX + 1] === 'M') {
           moveObject(playerX + 1, playerY, playerX + 2, playerY);
         }
         break;
       case 'west':
-        if (gameWorld[map][playerY][playerX - 1] === 'M') {
+        if (gameWorld[currentGameWorld][playerY][playerX - 1] === 'M') {
           moveObject(playerX - 1, playerY, playerX - 2, playerY);
         }
         break;
@@ -61,8 +71,8 @@ const Movement = (entities: any, { input }: any) => {
   ) => {
     if (isValidMove(newObjectX, newObjectY)) {
       const updatedGameWorld = gameWorld;
-      updatedGameWorld[map][currentObjectY][currentObjectX] = ' ';
-      updatedGameWorld[map][newObjectY][newObjectX] = 'M';
+      updatedGameWorld[currentGameWorld][currentObjectY][currentObjectX] = ' ';
+      updatedGameWorld[currentGameWorld][newObjectY][newObjectX] = 'M';
 
       store.dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
     }
@@ -70,87 +80,119 @@ const Movement = (entities: any, { input }: any) => {
 
   const moveDirection: { [K in PlayerDirection]: { tile: string; coord: string } } = {
     north: {
-      tile: returnMapTile(map, playerY - 1, playerX),
+      tile: returnMapTile(currentGameWorld, playerY - 1, playerX),
       coord: `${playerY - 1},${playerX}`,
     },
     south: {
-      tile: returnMapTile(map, playerY + 1, playerX),
+      tile: returnMapTile(currentGameWorld, playerY + 1, playerX),
       coord: `${playerY + 1},${playerX}`,
     },
     west: {
-      tile: returnMapTile(map, playerY, playerX - 1),
+      tile: returnMapTile(currentGameWorld, playerY, playerX - 1),
       coord: `${playerY},${playerX - 1}`,
     },
     east: {
-      tile: returnMapTile(map, playerY, playerX + 1),
+      tile: returnMapTile(currentGameWorld, playerY, playerX + 1),
       coord: `${playerY},${playerX + 1}`,
     },
   };
 
-  const startAnimation = () => {
-    // const player = document.getElementById('player');
-    const player = document.querySelector('.player-image');
-    player?.classList.add('moving');
+  // const startAnimation = () => {
+  //   const player = document.querySelector('.player-image');
+  //   player?.classList.add('moving');
+  // };
+
+  // const stopAnimation = () => {
+  //   const player = document.querySelector('.player-image');
+  //   player?.classList.remove('moving');
+  // };
+
+  const movePlayerNorth = () => {
+    playerDirection = 'north';
+    if (isNpcContact(playerX, playerY - 1)) {
+      sendPlayerToCombat();
+      return;
+    }
+
+    if (isValidMove(playerX, playerY - 1)) {
+      playerY -= 1;
+    }
   };
 
-  const stopAnimation = () => {
-    // const player = document.getElementById('player');
-    const player = document.querySelector('.player-image');
+  const movePlayerSouth = () => {
+    playerDirection = 'south';
+    if (isNpcContact(playerX, playerY + 1)) {
+      sendPlayerToCombat();
+      return;
+    }
 
-    setTimeout(() => {
-      player?.classList.remove('moving');
-    }, 1000);
+    if (isValidMove(playerX, playerY + 1)) {
+      playerY += 1;
+    }
+  };
+
+  const movePlayerWest = () => {
+    playerDirection = 'west';
+    if (isNpcContact(playerX - 1, playerY)) {
+      sendPlayerToCombat();
+      return;
+    }
+
+    if (isValidMove(playerX - 1, playerY)) {
+      playerX -= 1;
+    }
+  };
+
+  const movePlayerEast = () => {
+    playerDirection = 'east';
+    if (isNpcContact(playerX + 1, playerY)) {
+      sendPlayerToCombat();
+      return;
+    }
+
+    if (isValidMove(playerX + 1, playerY)) {
+      playerX += 1;
+    }
   };
 
   if (payload) {
-    startAnimation();
     const updatedGameWorld = gameWorld;
-    updatedGameWorld[map][playerY][playerX] = ' ';
+    updatedGameWorld[currentGameWorld][playerY][playerX] = ' ';
 
     switch (payload.key) {
-      case 'w':
+      case 'w' || 'W':
       case 'ArrowUp':
-        playerDirection = 'north';
-        if (isValidMove(playerX, playerY - 1)) {
-          startAnimation();
-          playerY -= 1;
-        }
+        movePlayerNorth();
         break;
-      case 's':
+
+      case 's' || 'S':
       case 'ArrowDown':
-        playerDirection = 'south';
-        if (isValidMove(playerX, playerY + 1)) {
-          startAnimation();
-          playerY += 1;
-        }
+        movePlayerSouth();
         break;
-      case 'a':
+
+      case 'a' || 'A':
       case 'ArrowLeft':
-        playerDirection = 'west';
-        if (isValidMove(playerX - 1, playerY)) {
-          startAnimation();
-          playerX -= 1;
-        }
+        movePlayerWest();
         break;
-      case 'd':
+
+      case 'd' || 'D':
       case 'ArrowRight':
-        playerDirection = 'east';
-        if (isValidMove(playerX + 1, playerY)) {
-          startAnimation();
-          playerX += 1;
-        }
+        movePlayerEast();
+
         break;
+
       case ' ':
         if (moveDirection[playerDirection].tile === ':') {
           const door = Doors.filter((room) => {
-            return room.currentCoords === `${moveDirection[playerDirection].coord},${map}`;
+            return (
+              room.currentCoords === `${moveDirection[playerDirection].coord},${currentGameWorld}`
+            );
           });
 
           if (door[0] !== undefined) {
-            map = door[0].newRoomIndex;
-            playerX = door[0].newPlayerCoords[0];
-            playerY = door[0].newPlayerCoords[1];
-            store.dispatch({ type: 'UPDATE_PLAYER_MAP', updatePlayerMap: map });
+            currentGameWorld = door[0].newRoomIndex;
+            [playerX, playerY] = door[0].newPlayerCoords;
+
             break;
           }
         }
@@ -160,8 +202,9 @@ const Movement = (entities: any, { input }: any) => {
         break;
     }
 
-    updatedGameWorld[map][playerY][playerX] = 'p';
+    updatedGameWorld[currentGameWorld][playerY][playerX] = 'p';
 
+    store.dispatch({ type: 'UPDATE_PLAYER_MAP', updatePlayerMap: currentGameWorld });
     store.dispatch({ type: 'UPDATE_PLAYER_DIRECTION', updatePlayerDirection: playerDirection });
     store.dispatch({
       type: 'UPDATE_PLAYER_COORDS',

@@ -1,6 +1,5 @@
 import { AppState } from '../..';
 import { useAppSelector } from '../../Store/AppState';
-import { npcList } from './Npcs';
 
 const World = () => {
   const player = useAppSelector((state: AppState) => state.player);
