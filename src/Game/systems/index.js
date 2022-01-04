@@ -1,3 +1,3 @@
-import { Movement } from './Movement';
+import { InputHandler } from './InputHandler';
 
-export default [Movement];
+export default [InputHandler];

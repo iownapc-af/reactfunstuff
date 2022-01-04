@@ -6,7 +6,7 @@ import { Doors } from '../components/Door';
 export type PlayerDirection = 'north' | 'west' | 'south' | 'east';
 
 // eslint-disable
-const Movement = (entities: any, { input }: any) => {
+const InputHandler = (entities: any, { input }: any) => {
   const { payload } = input.find((x: any) => x.name === 'onKeyDown') || {};
   const gameWorld = store.getState().overworld;
 
@@ -107,51 +107,16 @@ const Movement = (entities: any, { input }: any) => {
   //   player?.classList.remove('moving');
   // };
 
-  const movePlayerNorth = () => {
-    playerDirection = 'north';
-    if (isNpcContact(playerX, playerY - 1)) {
+  const movePlayer = (xChange: number, yChange: number, direction: PlayerDirection) => {
+    playerDirection = direction;
+    if (isNpcContact(playerX + xChange, playerY + yChange)) {
       sendPlayerToCombat();
       return;
     }
 
-    if (isValidMove(playerX, playerY - 1)) {
-      playerY -= 1;
-    }
-  };
-
-  const movePlayerSouth = () => {
-    playerDirection = 'south';
-    if (isNpcContact(playerX, playerY + 1)) {
-      sendPlayerToCombat();
-      return;
-    }
-
-    if (isValidMove(playerX, playerY + 1)) {
-      playerY += 1;
-    }
-  };
-
-  const movePlayerWest = () => {
-    playerDirection = 'west';
-    if (isNpcContact(playerX - 1, playerY)) {
-      sendPlayerToCombat();
-      return;
-    }
-
-    if (isValidMove(playerX - 1, playerY)) {
-      playerX -= 1;
-    }
-  };
-
-  const movePlayerEast = () => {
-    playerDirection = 'east';
-    if (isNpcContact(playerX + 1, playerY)) {
-      sendPlayerToCombat();
-      return;
-    }
-
-    if (isValidMove(playerX + 1, playerY)) {
-      playerX += 1;
+    if (isValidMove(playerX + xChange, playerY + yChange)) {
+      playerX += xChange;
+      playerY += yChange;
     }
   };
 
@@ -162,23 +127,37 @@ const Movement = (entities: any, { input }: any) => {
     switch (payload.key) {
       case 'w' || 'W':
       case 'ArrowUp':
-        movePlayerNorth();
+        movePlayer(0, -1, 'north');
         break;
 
       case 's' || 'S':
       case 'ArrowDown':
-        movePlayerSouth();
+        movePlayer(0, 1, 'south');
         break;
 
       case 'a' || 'A':
       case 'ArrowLeft':
-        movePlayerWest();
+        movePlayer(-1, 0, 'west');
         break;
 
       case 'd' || 'D':
       case 'ArrowRight':
-        movePlayerEast();
+        movePlayer(1, 0, 'east');
+        break;
 
+      case '`':
+        if (currentGameWorld === 3) {
+          currentGameWorld = 0;
+          playerX = 4;
+          playerY = 8;
+        }
+        break;
+
+      case 'b':
+        store.dispatch({
+          type: 'SET_INVENTORY_VISIBILITY',
+          setInventoryVisibility: !store.getState().isInventoryVisible,
+        });
         break;
 
       case ' ':
@@ -218,4 +197,4 @@ const Movement = (entities: any, { input }: any) => {
   return entities;
 };
 
-export { Movement };
+export { InputHandler };

@@ -1,0 +1,25 @@
+.inventory {
+  width: 100vw;
+  height: 100vh;
+}
+
+.inventory-wrapper {
+  position: absolute;
+  bottom: 0px;
+  width: 1360px;
+  height: 200px;
+  position: bottom;
+  background-color: orange;
+}
+
+.inventory-header {
+  border-bottom: 1px solid black;
+}
+
+.paused {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  font-size: 90px;
+  transform: translateX(-50%);
+}

@@ -1,8 +1,10 @@
-import { PlayerDirection } from '../Game/systems/Movement';
+import { PlayerDirection } from '../Game/systems/InputHandler';
 import { Action } from './action';
 
 interface State {
   indexMap: number;
+  isInventoryVisible: boolean;
+
   overworld: string[][][];
 
   player: {
@@ -18,6 +20,8 @@ interface State {
 
 export const defaultState: State = {
   indexMap: 0,
+  isInventoryVisible: false,
+
   overworld: [
     [
       '####################################################################'.split(''),
@@ -169,6 +173,11 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         overworld: action.updateMap,
+      };
+    case 'SET_INVENTORY_VISIBILITY':
+      return {
+        ...state,
+        isInventoryVisible: action.setInventoryVisibility,
       };
     default:
       return state;

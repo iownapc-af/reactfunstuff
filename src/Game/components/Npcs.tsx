@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { AppState } from '../..';
+import { isNamedTupleMember } from 'typescript';
+import { AppState, store } from '../..';
 import { useAppDispatch, useAppSelector } from '../../Store/AppState';
 
 export const npcList = [
@@ -32,22 +33,31 @@ export const npcList = [
 const Npcs = () => {
   const dispatch = useAppDispatch();
   const gameWorld = useAppSelector((state: AppState) => state.overworld);
+  const isInventoryOpen = useAppSelector((state: AppState) => state.isInventoryVisible);
 
   const updateNpc = () => {
     return <></>;
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
       npcList.forEach((npc) => {
         npcMove(npc.id);
       });
     }, 750);
-  }, []);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInventoryOpen]);
 
   const npcMove = (id: number) => {
-    const moveDirection = Math.floor(Math.random() * 6);
+    if (isInventoryOpen) {
+      return;
+    }
 
+    const moveDirection = Math.floor(Math.random() * 6);
     checkMovement(id, moveDirection);
   };
 
