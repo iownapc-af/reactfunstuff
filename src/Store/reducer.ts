@@ -15,6 +15,7 @@ interface State {
     health: number;
     mana: number;
     stamina: number;
+    inventory: { id: number; amount: number }[];
   };
 }
 
@@ -23,6 +24,44 @@ export const defaultState: State = {
   isInventoryVisible: false,
 
   overworld: [
+    [
+      't t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t '.split(''),
+      ' t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t'.split(''),
+      'ttteeeebbbeeeeet t t t t t eee  t t t t t t t t t t t t t t t t t t '.split(''),
+      ' teeeebbbbbeeseet t t t t eeeMet t t t t t t t t t t t t t t t t t t'.split(''),
+      't eseebbbbbeeeee t t t t teeeee t t t t t t t t t t t t t t t t t t '.split(''),
+      ' teeeebb:bbeseeet t t t t eeee t t t t t t t t t t t t t t t t t t t'.split(''),
+      't eMeeeeeeeeeeee t t t t t et t t t t t t t t t t t t t t t t t t t '.split(''),
+      ' teeeeeeeeMeeMeet t t t t te t t t t t t t t t t t t t t t t t t t t'.split(''),
+      't eeeeeeeeeeeeeeett t t t tet t t t t t t t t t t t t t t t t t t t '.split(''),
+      't eeeeMeeeeeMeeeet tttttttte t t t t t t t t t t t t t t t t t t t t'.split(''),
+      'tteeeeeeeeeMwMeeeetteeeeeeeet t t t t t t t t t t t t t t t t t t t '.split(''),
+      'wwMeeeeeeeeMwwMeeMteeeeeeeeeeeettttttttttttttttttttttttttttttttttttt'.split(''),
+      'wwwMeeeeeeeMMeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeM'.split(''),
+      'wwwMeeeeeeeeeeeeeeeetttttttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeMM'.split(''),
+      'wwwMeeeeeeeeeeeeeeet       ttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeM'.split(''),
+      'wwMeeeeeeeeeeeeeeet          tttt:tttttttttttttttttttteeettttttttttt'.split(''),
+      'ww eeeeeeeeeeeeeeet                                                 '.split(''),
+      'ww eeeeeeeeeeeeeet                                                  '.split(''),
+      'wwttttttt  ttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'ww                                                                  '.split(''),
+      'ww                                                                  '.split(''),
+      'ww                                                                  '.split(''),
+      'ww                                                                  '.split(''),
+      'ww                             wwwwtttwwwwtttMMMtttttttttttttttttttt'.split(''),
+      'ww                             wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
+      'wwwwwM                  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
+      'wwwwwwwwwtMMMtwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
+      'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwttttwwwttttwwwMMMwwwwwwwwwwwwwwwwwwww'.split(''),
+      'tttttwwwwwwwwwwwwttttttwwwwwtttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tttttttttwwwwwttttttttttwwwwwttttttttttttttttttttttttttttttttttt    '.split(''),
+      'tttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt   '.split(''),
+      'ttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt  '.split(''),
+      'tttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt '.split(''),
+      'ttttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt'.split(''),
+      'tttttttttttttttttttttttttttttwwwwttttttttttttttttttttttttttttttttttt'.split(''),
+      'tttttttttttttttttttttttttttttwwwwttttttttttttttttttttttttttttttttttt'.split(''),
+    ],
     [
       '####################################################################'.split(''),
       '#                                                                  #'.split(''),
@@ -122,6 +161,10 @@ export const defaultState: State = {
     health: 100,
     mana: 50,
     stamina: 50,
+    inventory: [
+      { id: 5, amount: 30 },
+      { id: 2, amount: 1 },
+    ],
   },
 };
 
@@ -141,6 +184,7 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           health: state.player.health,
           mana: state.player.mana,
           stamina: state.player.stamina,
+          inventory: state.player.inventory,
         },
       };
     case 'UPDATE_PLAYER_DIRECTION':
@@ -154,6 +198,7 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           health: state.player.health,
           mana: state.player.mana,
           stamina: state.player.stamina,
+          inventory: state.player.inventory,
         },
       };
     case 'UPDATE_PLAYER_MAP':
@@ -167,6 +212,7 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           health: state.player.health,
           mana: state.player.mana,
           stamina: state.player.stamina,
+          inventory: state.player.inventory,
         },
       };
     case 'UPDATE_MAP':

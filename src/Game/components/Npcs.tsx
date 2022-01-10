@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { isNamedTupleMember } from 'typescript';
-import { AppState, store } from '../..';
+import { AppState } from '../..';
 import { useAppDispatch, useAppSelector } from '../../Store/AppState';
 
 export const npcList = [
@@ -151,7 +150,7 @@ const Npcs = () => {
   };
 
   const returnMapTile = (indexMap: number, indexY: number, indexX: number) => {
-    if (gameWorld[indexMap][indexY][indexX] == ' ') return true; // return gameWorld[indexMap][indexY][indexX]
+    if (gameWorld[indexMap][indexY][indexX] === ' ') return true; // return gameWorld[indexMap][indexY][indexX]
 
     return false;
   };

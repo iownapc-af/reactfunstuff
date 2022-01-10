@@ -1,9 +1,19 @@
 import { useEffect } from 'react';
-import { store } from '../../..';
+import { AppState, useAppDispatch, useAppSelector } from '../../../Store/AppState';
 import './Inventory.scss';
+import { ItemComponent } from './ItemComponent';
 
 const Inventory = () => {
-  const isInventoryVisible = store.getState().isInventoryVisible.valueOf();
+  const dispatch = useAppDispatch();
+  const isInventoryVisible = useAppSelector((state: AppState) => state.isInventoryVisible);
+  const playerInventoryItems = useAppSelector((state: AppState) => state.player.inventory);
+
+  let currentIndex: number = 0;
+
+  useEffect(() => {
+    console.log(document.getElementById(`inv-item-${currentIndex}`));
+    document.getElementById(`inv-item-${currentIndex}`)?.focus();
+  }, [isInventoryVisible]);
 
   useEffect(() => {
     document.addEventListener('keydown', toggleIsGameRunning, false);
@@ -14,25 +24,45 @@ const Inventory = () => {
   });
 
   const toggleIsGameRunning = (e: KeyboardEvent) => {
-    // e.preventDefault();
     if (isInventoryVisible && e.key) {
-      if (e.key === 'b') {
-        store.dispatch({ type: 'SET_INVENTORY_VISIBILITY', setInventoryVisibility: false });
+      switch (e.key) {
+        case 'ArrowUp':
+        case 'w':
+          if (currentIndex > 0) currentIndex -= 1;
+          break;
+        case 's':
+        case 'ArrowDown':
+          if (currentIndex < playerInventoryItems.length - 1) currentIndex += 1;
+          break;
+        case 'b':
+          dispatch({ type: 'SET_INVENTORY_VISIBILITY', setInventoryVisibility: false });
+          break;
       }
+
+      focusCurrentItem();
     }
+  };
+
+  const focusCurrentItem = () => {
+    document.getElementById(`inv-item-${currentIndex}`)?.focus();
   };
 
   return (
     <>
       {isInventoryVisible ? (
         <div className="inventory">
-          <div className="paused" id="paused">
-            PAUSED
-          </div>
-          <div className="inventory-wrapper">
-            <div className="inventory-header">INVENTORY</div>
-            <div className="inventory-item">Test Item #1</div>
-            <div className="inventory-item">Test Item #2</div>
+          <div className="inventory-header">INVENTORY</div>
+          <div className="inventory-items">
+            {playerInventoryItems.map((item, index) => {
+              return (
+                <ItemComponent
+                  key={item.id}
+                  index={`inv-item-${index}`}
+                  id={item.id}
+                  amount={item.amount}
+                />
+              );
+            })}
           </div>
         </div>
       ) : (

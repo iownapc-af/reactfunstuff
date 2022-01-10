@@ -7,233 +7,41 @@
   min-width: 40px;
 }
 
-.player-image {
-  width: 27px;
-  height: 40px;
-  margin: auto;
-}
-
 .south {
-  background: url("../res/player/player_south_1.svg") no-repeat no-repeat;
-  background-size: 100%;
-  width: 27px;
+  background: url("../res/player/walkSouth.gif") no-repeat no-repeat, #76552b;
+  background-size: 70%;
+  width: 40px;
   height: 40px;
-
-  .moving {
-    animation: walkSouthAnimation 0.5s steps(1) infinite;
-  }
 }
 
 .east {
-  background: url("../res/player/player_east_1.svg") no-repeat no-repeat;
-  background-size: 100%;
-  width: 27px;
+  background: url("../res/player/player_east_1.svg") no-repeat no-repeat, #76552b;
+  background-size: 70%;
+  width: 40px;
   height: 40px;
-
-  .moving {
-    animation: walkEastAnimation 0.5s steps(1) infinite;
-  }
 }
 
 .north {
-  background: url("../res/player/player_north_1.svg") no-repeat no-repeat;
-  background-size: 100%;
-  width: 27px;
+  background: url("../res/player/player_north_1.svg") no-repeat no-repeat, #76552b;
+  background-size: 70%;
+  width: 40px;
   height: 40px;
-
-  .moving {
-    animation: walkNorthAnimation 0.5s steps(1) infinite;
-  }
 }
 
 .west {
-  background: url("../res/player/player_west_1.svg") no-repeat no-repeat;
-  background-size: 100%;
-  width: 27px;
+  background: url("../res/player/player_west_1.svg") no-repeat no-repeat, #76552b;
+  background-size: 70%;
+  width: 40px;
   height: 40px;
-
 }
 
-.player-image .west .moving {
-  animation: walkWestAnimation 0.5s steps(1) infinite;
-}
-// .player[moving="true"] .players {
-//   animation: walkWestAnimation 1s steps(1) infinite;
-// }
-
-@keyframes walkWestAnimation {
-  0% {
-    background: url("../res/player/player_west_1.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  25% {
-    background: url("../res/player/player_west_2.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  50% {
-    background: url("../res/player/player_west_3.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  75% {
-    background: url("../res/player/player_west_4.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-}
-@keyframes walkEastAnimation {
-  0% {
-    background: url("../res/player/player_east_1.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  25% {
-    background: url("../res/player/player_east_2.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  50% {
-    background: url("../res/player/player_east_3.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  75% {
-    background: url("../res/player/player_east_4.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-}
-@keyframes walkSouthAnimation {
-  0% {
-    background: url("../res/player/player_south_1.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  25% {
-    background: url("../res/player/player_south_2.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  50% {
-    background: url("../res/player/player_south_3.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  75% {
-    background: url("../res/player/player_south_4.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-}
-@keyframes walkNorthAnimation {
-  0% {
-    background: url("../res/player/player_north_1.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  25% {
-    background: url("../res/player/player_north_2.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  50% {
-    background: url("../res/player/player_north_3.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-  75% {
-    background: url("../res/player/player_north_4.svg") no-repeat no-repeat;
-    background-size: 100%;
-    width: 25px;
-    height: 40px;
-  }
-}
 .tree {
-  background: url("../res/tree.png") no-repeat center;
+  background: url("../res/tree.png") no-repeat center, #76552b;
   background-size: cover;
-  transform: scale(2) translate(0px, -15px);
+  // transform: scale(2) translate(0px, -15px);
 }
 
 .boulder {
-  background: url("../res/boulder.svg") no-repeat;
+  background: url("../res/boulder.svg") no-repeat, #76552b;
   background-size: cover;
 }
-
-// .tree1 {
-//   background: url("./res/tree2.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .tree2 {
-//   background: url("./res/tree3.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .tree3 {
-//   background: url("./res/tree4.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .wall {
-//   background: url("./res/wall.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .door {
-//   background: url("./res/door.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .grass {
-//   background: url("./res/grass.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .flower {
-//   background: url("./res/flower.png") no-repeat;
-//   background-size: 20px;
-// }
-
-// .gorilla {
-//   height: 20px;
-//   width: 20px;
-
-//   background: url("./res/dad.png") no-repeat;
-//   background-size: 20px;
-//   // animation: pop2 0.5s infinite;
-// }
-
-// .squid {
-//   height: 20px;
-//   width: 20px;
-
-//   background: url("./res/squidgames.png") no-repeat;
-//   background-size: 20px;
-//   // animation: pop3 0.9s infinite;
-// }
-
-// .frog {
-//   height: 20px;
-//   width: 20px;
-
-//   background: url("./res/tutle.png") no-repeat;
-//   background-size: 20px;
-//   // animation: pop 0.7s infinite;
-// }

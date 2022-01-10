@@ -1,25 +1,58 @@
-.inventory {
-  width: 100vw;
-  height: 100vh;
-}
 
-.inventory-wrapper {
+.inventory {
   position: absolute;
-  bottom: 0px;
-  width: 1360px;
-  height: 200px;
-  position: bottom;
-  background-color: orange;
+  top: 50%;
+  left: 50%;
+  transform: translate(-90%, -72%); // 50% x for centered game
+  
+  width: 680px;
+  height: 400px;
+
+  color: white;
+  background-color: rgba(52, 65, 65, 90%);
 }
 
 .inventory-header {
-  border-bottom: 1px solid black;
+  display: flex;
+  font-size: 20px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid;
 }
 
-.paused {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  font-size: 90px;
-  transform: translateX(-50%);
+button {
+  border: none;
+  cursor: pointer;
+  color: white;
+  background: none;
+  padding: 0;
+}
+
+.item {
+  outline: none;
+  width: 95%;
+  height: 20px;
+  margin: 5px auto;
+  display: flex;
+  justify-content: space-between;
+
+  &:focus {
+    outline: none;
+
+    box-shadow: none;
+    color: gold;
+  }
+}
+
+.item-name {
+  width: 20%;
+}
+
+.item-desc {
+  width: 70%;
+}
+
+.item-count {
+  width: 10%;
 }
