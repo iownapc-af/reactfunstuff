@@ -36,12 +36,16 @@
 }
 
 .tree {
-  background: url("../res/tree.png") no-repeat center, #76552b;
+  background: url("../res/pineTree.svg") no-repeat center, #76552b;
   background-size: cover;
   // transform: scale(2) translate(0px, -15px);
 }
 
 .boulder {
   background: url("../res/boulder.svg") no-repeat, #76552b;
+  background-size: cover;
+}
+.water {
+  background: url("../res/water.svg") no-repeat, #76552b;
   background-size: cover;
 }
