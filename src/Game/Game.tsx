@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { PureComponent } from 'react';
 import { GameEngine } from './Engine';
 import Systems from './systems';
-import Entities from './Entities';
+import Entities from './Entities/Entities';
 import './Game.scss';
 import './Tiles.scss';
 import { AppState } from '..';

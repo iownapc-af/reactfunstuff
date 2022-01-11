@@ -1,8 +1,3 @@
-.tile {
-  background-color: black;
-  transform: scale(2);
-}
-
 .player {
   min-width: 40px;
 }
@@ -36,8 +31,9 @@
 }
 
 .tree {
-  background: url("../res/pineTree.svg") no-repeat center, #76552b;
+  background: url("../res/pinetree.png") no-repeat center, #76552b;
   background-size: cover;
+  mix-blend-mode: overlay;
   // transform: scale(2) translate(0px, -15px);
 }
 
@@ -45,7 +41,15 @@
   background: url("../res/boulder.svg") no-repeat, #76552b;
   background-size: cover;
 }
+
 .water {
-  background: url("../res/water.svg") no-repeat, #76552b;
+  background: rgb(48, 48, 146);
   background-size: cover;
+  mix-blend-mode: overlay;
+}
+
+.dirt {
+  background: #76552b;
+  background-size: cover;
+  mix-blend-mode: overlay;
 }

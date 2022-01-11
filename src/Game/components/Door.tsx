@@ -1,6 +1,6 @@
 export const Doors = [
   {
-    currentCoords: '5,7,0',
+    currentCoords: '5,8,0',
     newPlayerCoords: [7, 6],
     newRoomIndex: 1,
   },

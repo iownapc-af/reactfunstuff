@@ -6,4 +6,5 @@ export type Action =
   | { type: 'UPDATE_PLAYER_DIRECTION'; updatePlayerDirection: PlayerDirection }
   | { type: 'UPDATE_PLAYER_MAP'; updatePlayerMap: number }
   | { type: 'UPDATE_MAP'; updateMap: string[][][] }
+  | { type: 'SET_PLAYER_TILE_PLACED'; setPlayerTilePlaced: string }
   | { type: 'SET_INVENTORY_VISIBILITY'; setInventoryVisibility: boolean };

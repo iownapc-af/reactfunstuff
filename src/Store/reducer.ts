@@ -11,6 +11,7 @@ interface State {
     direction: PlayerDirection;
     xCoordinate: number;
     yCoordinate: number;
+    tilePlacedOn: string;
     map: number;
     health: number;
     mana: number;
@@ -23,41 +24,54 @@ export const defaultState: State = {
   indexMap: 0,
   isInventoryVisible: false,
 
+  /*
+    Map Legend
+    t - Tree
+    e - dirt/earth
+    p - player
+    : - door
+    M - boulder
+    w - water
+    s - shrub/bush
+    b - building
+    q - quest giver
+  */
+
   overworld: [
     [
-      't t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t '.split(''),
-      ' t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t t'.split(''),
-      'ttteeeebbbeeeeet t t t t t eee  t t t t t t t t t t t t t t t t t t '.split(''),
-      ' teeeebbbbbeeseet t t t t eeeMet t t t t t t t t t t t t t t t t t t'.split(''),
-      't eseebbbbbeeeee t t t t teeeee t t t t t t t t t t t t t t t t t t '.split(''),
-      ' teeeebb:bbeseeet t t t t eeee t t t t t t t t t t t t t t t t t t t'.split(''),
-      't eMeeeeeeeeeeee t t t t t et t t t t t t t t t t t t t t t t t t t '.split(''),
-      ' teeeeeeeeMeeMeet t t t t te t t t t t t t t t t t t t t t t t t t t'.split(''),
-      't eeeeeeeeeeeeeeett t t t tet t t t t t t t t t t t t t t t t t t t '.split(''),
-      't eeeeMeeeeeMeeeet tttttttte t t t t t t t t t t t t t t t t t t t t'.split(''),
-      'tteeeeeeeeeMwMeeeetteeeeeeeet t t t t t t t t t t t t t t t t t t t '.split(''),
+      'tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'ttteeeebbbeeeeetttttttttttteeetttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteeeebbbbbeeseetttttttttteeeMettttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteseebbbbbeeeeetttttttttteeeeettttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteeeebb:bbeseeetttttttttteeeetttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteMeeeeeeeeeeeetttttttttttetttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteeeeeeeeMeeMeetttttttttttetttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteeeeeeeeqeeeeeettttttttttetttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteeeeMeeeeeMeeeettttttttttetttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tteeeeeeeeeMwMeeeetteeeeeeeetttttttttttttttttttttttttttttttttttttttt'.split(''),
       'wwMeeeeeeeeMwwMeeMteeeeeeeeeeeettttttttttttttttttttttttttttttttttttt'.split(''),
       'wwwMeeeeeeeeMMeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeM'.split(''),
       'wwwMeeeeeeeeeeeeeeeetttttttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeMM'.split(''),
-      'wwwMeeeeeeeeeeeeeeett t t tttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeM'.split(''),
-      'wwMeeeeeeeeeeeeeeett t t t t ttttetttttttttttttttttttteeettttttttttt'.split(''),
-      'ww eeeeeeeeeeeeeeett t t tt t t tet t t tt t t t      eeet t t t    '.split(''),
-      'ww eeeeeeeeeeeeeett t t tt t t t et t t tt t t t      eeet t t t    '.split(''),
-      'wwttttttt  t t t t t t t t t t t et t t t t t t t t t eeet t t t t t'.split(''),
-      'wwt t t t  t t tt t t tt t t t  eet t t tt t t t      eeet t t t    '.split(''),
-      'wwt t t t t t t t t t t t t t t  et t t tt t t tt t t teeet t t t   '.split(''),
-      'wwt t t  t t t tt t t t tt    eeeet t t tt t t tt t t teeet t t t   '.split(''),
-      'wwt t t t t t tt t t t eeeeeet t t tt t t tt t t t   eeet t t t     '.split(''),
-      'wwt t t tt t t tt t t t eeeee  wwwwtttwwwwttttttttttttMMMttttttttttt'.split(''),
-      'wwt t t tt t t tt t t t eeeee  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
-      'wwwwwMt t t tt t t t    wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
+      'wwwMeeeeeeeeeeeeeeettttttttttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeM'.split(''),
+      'wwMeeeeeeeeeeeeeeetttttttttttttttetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwteeeeeeeeeeeeeeetttttttttttttttetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwteeeeeeeeeeeeeettttttttttttttttetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwtttttttttttttttttttttttttttttttetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwtttttttttttttttttttttttttttttteetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwtttttttttttttttttttttttttttttttetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwtttttttttttttttttttttttttttteeeetttttttttttttttttttteeettttttttttt'.split(''),
+      'wwttttttttttttttttttttteeeeeettttttttttttttttttttttttteeettttttttttt'.split(''),
+      'wwtttttttttttttttttttttteeeeettwwwwtttwwwwttttttttttttMMMttttttttttt'.split(''),
+      'wwtttttttttttttttttttttteeeeettwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
+      'wwwwwMttttttttttttttttttwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
       'wwwwwwwwwtMMMtwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
       'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwttttwwwttttwwwwwwwwwwwwMMMwwwwwwwwwww'.split(''),
       'tttttwwwwwwwwwwwwttttttwwwwwtttttttttttttttttttttttttttttttttttttttt'.split(''),
-      'tttttttttwwwwwttttttttttwwwwwttttttttttttttttttttttttttttttttttt    '.split(''),
-      'tttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt   '.split(''),
-      'ttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt  '.split(''),
-      'tttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt '.split(''),
+      'tttttttttwwwwwttttttttttwwwwwttttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tttttttttttttttttttttttttwwwwwtttttttttttttttttttttttttttttttttttttt'.split(''),
+      'ttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttttt'.split(''),
+      'tttttttttttttttttttttttttttwwwwwtttttttttttttttttttttttttttttttttttt'.split(''),
       'ttttttttttttttttttttttttttttwwwwwttttttttttttttttttttttttttttttttttt'.split(''),
       'tttttttttttttttttttttttttttttwwwwttttttttttttttttttttttttttttttttttt'.split(''),
       'tttttttttttttttttttttttttttttwwwwttttttttttttttttttttttttttttttttttt'.split(''),
@@ -84,7 +98,7 @@ export const defaultState: State = {
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
-      '#      t t t t t t t t t t t t t t t t t t t t                     #'.split(''),
+      '#      ttttttttttttttttttttttttt t t t t t t t                     #'.split(''),
       '#                                                                  #'.split(''),
       '#                        :                                         #'.split(''),
       '#                                                                  #'.split(''),
@@ -157,6 +171,7 @@ export const defaultState: State = {
     direction: 'south',
     xCoordinate: 4,
     yCoordinate: 8,
+    tilePlacedOn: 'e',
     map: 0,
     health: 100,
     mana: 50,
@@ -180,6 +195,7 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: state.player.direction,
           xCoordinate: action.updatePlayerCoords[0],
           yCoordinate: action.updatePlayerCoords[1],
+          tilePlacedOn: state.player.tilePlacedOn,
           map: state.player.map,
           health: state.player.health,
           mana: state.player.mana,
@@ -194,6 +210,7 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: action.updatePlayerDirection,
           xCoordinate: state.player.xCoordinate,
           yCoordinate: state.player.yCoordinate,
+          tilePlacedOn: state.player.tilePlacedOn,
           map: state.player.map,
           health: state.player.health,
           mana: state.player.mana,
@@ -208,6 +225,7 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: state.player.direction,
           xCoordinate: state.player.xCoordinate,
           yCoordinate: state.player.yCoordinate,
+          tilePlacedOn: state.player.tilePlacedOn,
           map: action.updatePlayerMap,
           health: state.player.health,
           mana: state.player.mana,
@@ -224,6 +242,21 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
       return {
         ...state,
         isInventoryVisible: action.setInventoryVisibility,
+      };
+    case 'SET_PLAYER_TILE_PLACED':
+      return {
+        ...state,
+        player: {
+          direction: state.player.direction,
+          xCoordinate: state.player.xCoordinate,
+          yCoordinate: state.player.yCoordinate,
+          tilePlacedOn: action.setPlayerTilePlaced,
+          map: state.player.map,
+          health: state.player.health,
+          mana: state.player.mana,
+          stamina: state.player.stamina,
+          inventory: state.player.inventory,
+        },
       };
     default:
       return state;

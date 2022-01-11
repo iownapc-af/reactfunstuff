@@ -1,5 +1,5 @@
-import { Npcs } from './components/Npcs';
-import { World } from './components/World';
+import { Npcs } from '../components/Npcs';
+import { World } from '../components/World';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {

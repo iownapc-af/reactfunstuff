@@ -1,37 +1,12 @@
 import { useEffect } from 'react';
 import { AppState } from '../..';
 import { useAppDispatch, useAppSelector } from '../../Store/AppState';
-
-export const npcList = [
-  {
-    id: 0,
-    name: 'test_npc',
-    spawnCoords: [7, 7, 0],
-    currentCoords: [7, 7, 0],
-    leash: 5,
-    health: 1,
-  },
-  {
-    id: 1,
-    name: 'test_npc',
-    spawnCoords: [15, 17, 0],
-    currentCoords: [15, 17, 0],
-    leash: 5,
-    health: 1,
-  },
-  {
-    id: 2,
-    name: 'test_npc',
-    spawnCoords: [10, 20, 0],
-    currentCoords: [10, 20, 0],
-    leash: 5,
-    health: 1,
-  },
-];
+import { npcList } from '../Entities/EntityList';
 
 const Npcs = () => {
   const dispatch = useAppDispatch();
   const gameWorld = useAppSelector((state: AppState) => state.overworld);
+  const currentGameWorld = useAppSelector((state: AppState) => state.player.map);
   const isInventoryOpen = useAppSelector((state: AppState) => state.isInventoryVisible);
 
   const updateNpc = () => {
@@ -41,9 +16,9 @@ const Npcs = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       npcList.forEach((npc) => {
-        npcMove(npc.id);
+        calculateNpcMovement(npc.id);
       });
-    }, 750);
+    }, 50);
 
     return () => {
       clearInterval(intervalId);
@@ -51,7 +26,7 @@ const Npcs = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInventoryOpen]);
 
-  const npcMove = (id: number) => {
+  const calculateNpcMovement = (id: number) => {
     if (isInventoryOpen) {
       return;
     }
@@ -65,76 +40,20 @@ const Npcs = () => {
 
     updatedGameWorld[npcList[id].currentCoords[2]][npcList[id].currentCoords[0]][
       npcList[id].currentCoords[1]
-    ] = ' ';
+    ] = npcList[id].tilePlacedOn;
 
     switch (moveDirections) {
       case 0: // up
-        if (
-          returnMapTile(
-            npcList[id].currentCoords[2],
-            npcList[id].currentCoords[0] - 1,
-            npcList[id].currentCoords[1]
-          )
-        ) {
-          npcList[id].spawnCoords = npcList[id].currentCoords;
-          // npcList[id].moveDirection = 'north';
-          npcList[id].currentCoords = [
-            npcList[id].currentCoords[0] - 1,
-            npcList[id].currentCoords[1],
-            npcList[id].currentCoords[2],
-          ];
-        }
+        moveNpc(id, -1, 0);
         break;
       case 1: // down
-        if (
-          returnMapTile(
-            npcList[id].currentCoords[2],
-            npcList[id].currentCoords[0] + 1,
-            npcList[id].currentCoords[1]
-          )
-        ) {
-          npcList[id].spawnCoords = npcList[id].currentCoords;
-          // npcList[id].moveDirection = 'south';
-          npcList[id].currentCoords = [
-            npcList[id].currentCoords[0] + 1,
-            npcList[id].currentCoords[1],
-            npcList[id].currentCoords[2],
-          ];
-        }
+        moveNpc(id, 1, 0);
         break;
       case 2: // left
-        if (
-          returnMapTile(
-            npcList[id].currentCoords[2],
-            npcList[id].currentCoords[0],
-            npcList[id].currentCoords[1] - 1
-          )
-        ) {
-          npcList[id].spawnCoords = npcList[id].currentCoords;
-          // npcList[id].moveDirection = 'west';
-          npcList[id].currentCoords = [
-            npcList[id].currentCoords[0],
-            npcList[id].currentCoords[1] - 1,
-            npcList[id].currentCoords[2],
-          ];
-        }
+        moveNpc(id, 0, -1);
         break;
       case 3: // right
-        if (
-          returnMapTile(
-            npcList[id].currentCoords[2],
-            npcList[id].currentCoords[0],
-            npcList[id].currentCoords[1] + 1
-          )
-        ) {
-          npcList[id].spawnCoords = npcList[id].currentCoords;
-          // npcList[id].moveDirection = 'east';
-          npcList[id].currentCoords = [
-            npcList[id].currentCoords[0],
-            npcList[id].currentCoords[1] + 1,
-            npcList[id].currentCoords[2],
-          ];
-        }
+        moveNpc(id, 0, 1);
         break;
       case 4: // Doesn't move if 4/5 are rolled
       case 5:
@@ -149,8 +68,48 @@ const Npcs = () => {
     return false;
   };
 
-  const returnMapTile = (indexMap: number, indexY: number, indexX: number) => {
-    if (gameWorld[indexMap][indexY][indexX] === ' ') return true; // return gameWorld[indexMap][indexY][indexX]
+  const moveNpc = (id: number, indexY: number, indexX: number) => {
+    if (
+      returnMapTile(indexX + npcList[id].currentCoords[1], indexY + npcList[id].currentCoords[0]) &&
+      isWithinLeash(id)
+    ) {
+      replaceMapTileOnMove(id, indexX, indexY);
+      setTilePlacedOn(id, indexX, indexY);
+
+      npcList[id].currentCoords = [
+        npcList[id].currentCoords[0] + indexY,
+        npcList[id].currentCoords[1] + indexX,
+        npcList[id].currentCoords[2],
+      ];
+    }
+  };
+
+  const isWithinLeash = (id: number) => {
+    return (
+      npcList[id].currentCoords[0] - 1 - npcList[id].spawnCoords[0] < npcList[id].leash &&
+      npcList[id].currentCoords[0] + 1 - npcList[id].spawnCoords[0] < npcList[id].leash &&
+      npcList[id].currentCoords[1] - 1 - npcList[id].spawnCoords[1] < npcList[id].leash &&
+      npcList[id].currentCoords[1] + 1 - npcList[id].spawnCoords[1] < npcList[id].leash
+    );
+  };
+
+  const replaceMapTileOnMove = (npcId: number, indexX: number, indexY: number) => {
+    const updatedGameWorld = gameWorld;
+    updatedGameWorld[currentGameWorld][indexY][indexX] = npcList[npcId].tilePlacedOn;
+    dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
+  };
+
+  const setTilePlacedOn = (npcId: number, indexX: number, indexY: number) => {
+    npcList[npcId].tilePlacedOn = gameWorld[currentGameWorld][indexY][indexX];
+  };
+
+  const returnMapTile = (indexX: number, indexY: number) => {
+    if (
+      gameWorld[currentGameWorld][indexY][indexX] === ' ' ||
+      gameWorld[currentGameWorld][indexY][indexX] === 'e'
+    ) {
+      return true;
+    }
 
     return false;
   };

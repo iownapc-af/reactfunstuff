@@ -43,7 +43,7 @@ const World = () => {
       case '1':
         return gridsquare('wall', indexY, indexX, worldIndex);
       case ' ':
-        return gridsquare('dirt', indexY, indexX, worldIndex);
+        return gridsquare('empty', indexY, indexX, worldIndex);
       case ':':
         return gridsquare('door', indexY, indexX, worldIndex);
       case '-':
