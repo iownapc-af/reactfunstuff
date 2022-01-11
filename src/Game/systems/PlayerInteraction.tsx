@@ -59,13 +59,10 @@ const PlayerInteraction = () => {
     })[0].id;
 
     const quest = questList.filter((t_quest) => {
-      num = t_quest.playerProgress;
-      return [
-        t_quest.questGiverId === npcId && t_quest.playerProgress < t_quest.questSteps.length - 1,
-        t_quest.id,
-      ];
+      return t_quest.questGiverId === npcId && t_quest.playerProgress < t_quest.questSteps.length; // max number of steps
     })[0];
 
+    num = quest.playerProgress;
     if (quest.questRequirements[quest.playerProgress].bool()) {
       quest.playerProgress += 1;
     }

@@ -1,39 +1,8 @@
-import { isNamedTupleMember } from 'typescript';
 import { store } from '../..';
 
 const npcList = [
   {
     id: 0,
-    entityType: 'x',
-    name: 'test_npc',
-    spawnCoords: [7, 7, 0],
-    currentCoords: [7, 7, 0],
-    leash: 2,
-    health: 1,
-    tilePlacedOn: 'e',
-  },
-  {
-    id: 1,
-    entityType: 'x',
-    name: 'test_npc',
-    spawnCoords: [15, 17, 0],
-    currentCoords: [15, 17, 0],
-    leash: 2,
-    health: 1,
-    tilePlacedOn: 'e',
-  },
-  {
-    id: 2,
-    entityType: 'x',
-    name: 'test_npc',
-    spawnCoords: [10, 20, 0],
-    currentCoords: [10, 20, 0],
-    leash: 5,
-    health: 1,
-    tilePlacedOn: 'e',
-  },
-  {
-    id: 3,
     entityType: 'q',
     name: 'Test_Quest_Giver',
     spawnCoords: [8, 10, 0],
@@ -44,11 +13,20 @@ const npcList = [
   },
 ];
 
-const questList = [
+interface Quests {
+  id: number;
+  name: string;
+  questGiverId: number;
+  questSteps: { dialog: string[] }[];
+  questRequirements: { bool: () => boolean }[];
+  playerProgress: number;
+}
+
+const questList: Quests[] = [
   {
     id: 0,
     name: 'First Quest',
-    questGiverId: 3,
+    questGiverId: 0,
     questSteps: [
       { dialog: ['Hello.', 'Can you retrieve me some banananana?', 'Please banana.'] },
       { dialog: ['Get BANANA'] },
@@ -67,6 +45,25 @@ const questList = [
               (item) => item.id === 0 && item.amount > 0
             ).length > 0
           );
+        },
+      },
+      {
+        bool: () => {
+          return true;
+        },
+      },
+    ],
+    playerProgress: 0,
+  },
+  {
+    id: 1,
+    name: 'test second quest',
+    questGiverId: 0,
+    questSteps: [{ dialog: ['Oi'] }, { dialog: ['Ooga.. Ooga Booga..'] }],
+    questRequirements: [
+      {
+        bool: () => {
+          return questList[0].playerProgress === 3;
         },
       },
       {
