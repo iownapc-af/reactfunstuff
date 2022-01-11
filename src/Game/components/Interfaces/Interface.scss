@@ -1,0 +1,15 @@
+.interface {
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  background-color: rgba(52, 65, 65, 95%);
+}
+
+.dialog {
+  position: absolute;
+  max-width: 500px;
+  min-width: 200px;
+  height: 40px;
+  top: 10%;
+  left: 580px;
+}

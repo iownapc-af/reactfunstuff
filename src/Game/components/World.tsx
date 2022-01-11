@@ -30,32 +30,30 @@ const World = () => {
     // }
 
     switch (gameWorld[worldIndex][indexY][indexX]) {
-      case 'e':
-        return gridsquare('dirt', indexY, indexX, worldIndex);
-      case 'b':
-        return gridsquare('building', indexY, indexX, worldIndex);
-      case 's':
-        return gridsquare('shrub', indexY, indexX, worldIndex);
-      case 'w':
-        return gridsquare('water', indexY, indexX, worldIndex);
-      case '#':
-        return gridsquare('border', indexY, indexX, worldIndex);
-      case '1':
-        return gridsquare('wall', indexY, indexX, worldIndex);
       case ' ':
         return gridsquare('empty', indexY, indexX, worldIndex);
+      case '#':
+        return gridsquare('border', indexY, indexX, worldIndex);
       case ':':
         return gridsquare('door', indexY, indexX, worldIndex);
-      case '-':
-        return gridsquare('attac', indexY, indexX, worldIndex);
-      case 't':
-        return gridsquare('tree', indexY, indexX, worldIndex);
+      case 'b':
+        return gridsquare('building', indexY, indexX, worldIndex);
+      case 'e':
+        return gridsquare('dirt', indexY, indexX, worldIndex);
       case 'M':
         return gridsquare('boulder', indexY, indexX, worldIndex);
-      case 'x':
-        return gridsquare('enemy', indexY, indexX, worldIndex);
       case 'p':
         return gridsquare('player', indexY, indexX, worldIndex);
+      case 'q':
+        return gridsquare('npc', indexY, indexX, worldIndex);
+      case 's':
+        return gridsquare('shrub', indexY, indexX, worldIndex);
+      case 't':
+        return gridsquare('tree', indexY, indexX, worldIndex);
+      case 'w':
+        return gridsquare('water', indexY, indexX, worldIndex);
+      case 'x':
+        return gridsquare('enemy', indexY, indexX, worldIndex);
     }
   };
 

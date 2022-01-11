@@ -1,9 +1,4 @@
-const ItemList = [
-  { id: 0, name: 'Item', description: 'Test Item 1' },
-  { id: 1, name: 'metI', description: 'Test Item 2' },
-  { id: 2, name: 'COBWeef', description: 'Beef from a spider cow' },
-  { id: 5, name: 'Gold', description: 'Gold Piece' },
-];
+import { itemList } from '../../../Entities/Lists';
 
 interface ItemProps {
   id: number;
@@ -12,7 +7,7 @@ interface ItemProps {
 }
 
 const ItemComponent = (props: ItemProps) => {
-  const item = ItemList.filter((items) => {
+  const item = itemList.filter((items) => {
     return props.id === items.id;
   });
 
@@ -25,4 +20,4 @@ const ItemComponent = (props: ItemProps) => {
   );
 };
 
-export { ItemComponent, ItemList };
+export { ItemComponent };

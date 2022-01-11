@@ -2,9 +2,11 @@ import { PlayerDirection } from '../Game/systems/InputHandler';
 import { Action } from './action';
 
 interface State {
-  indexMap: number;
+  isDialogVisible: boolean;
+  dialogText: string[];
   isInventoryVisible: boolean;
 
+  indexMap: number;
   overworld: string[][][];
 
   player: {
@@ -21,11 +23,12 @@ interface State {
 }
 
 export const defaultState: State = {
-  indexMap: 0,
+  isDialogVisible: false,
+  dialogText: [],
   isInventoryVisible: false,
 
   /*
-    Map Legend
+  Map Legend
     t - Tree
     e - dirt/earth
     p - player
@@ -35,8 +38,9 @@ export const defaultState: State = {
     s - shrub/bush
     b - building
     q - quest giver
-  */
+    */
 
+  indexMap: 0,
   overworld: [
     [
       'tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt'.split(''),
@@ -178,7 +182,7 @@ export const defaultState: State = {
     stamina: 50,
     inventory: [
       { id: 5, amount: 30 },
-      { id: 2, amount: 1 },
+      { id: 1, amount: 1 },
     ],
   },
 };
@@ -201,6 +205,21 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           mana: state.player.mana,
           stamina: state.player.stamina,
           inventory: state.player.inventory,
+        },
+      };
+    case 'UPDATE_PLAYER_INVENTORY':
+      return {
+        ...state,
+        player: {
+          direction: state.player.direction,
+          xCoordinate: state.player.xCoordinate,
+          yCoordinate: state.player.yCoordinate,
+          tilePlacedOn: state.player.tilePlacedOn,
+          map: state.player.map,
+          health: state.player.health,
+          mana: state.player.mana,
+          stamina: state.player.stamina,
+          inventory: action.updatePlayerInventory,
         },
       };
     case 'UPDATE_PLAYER_DIRECTION':
@@ -238,11 +257,6 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
         ...state,
         overworld: action.updateMap,
       };
-    case 'SET_INVENTORY_VISIBILITY':
-      return {
-        ...state,
-        isInventoryVisible: action.setInventoryVisibility,
-      };
     case 'SET_PLAYER_TILE_PLACED':
       return {
         ...state,
@@ -257,6 +271,21 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           stamina: state.player.stamina,
           inventory: state.player.inventory,
         },
+      };
+    case 'SET_DIALOG_VISIBILITY':
+      return {
+        ...state,
+        isDialogVisible: action.setDialogVisibility,
+      };
+    case 'SET_DIALOG_TEXT':
+      return {
+        ...state,
+        dialogText: action.setDialogText,
+      };
+    case 'SET_INVENTORY_VISIBILITY':
+      return {
+        ...state,
+        isInventoryVisible: action.setInventoryVisibility,
       };
     default:
       return state;

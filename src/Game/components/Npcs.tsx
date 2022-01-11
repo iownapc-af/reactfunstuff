@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { AppState } from '../..';
 import { useAppDispatch, useAppSelector } from '../../Store/AppState';
-import { npcList } from '../Entities/EntityList';
+import { npcList } from '../Entities/Lists';
 
 const Npcs = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ const Npcs = () => {
       npcList.forEach((npc) => {
         calculateNpcMovement(npc.id);
       });
-    }, 50);
+    }, 750);
 
     return () => {
       clearInterval(intervalId);
@@ -62,29 +62,32 @@ const Npcs = () => {
 
     updatedGameWorld[npcList[id].currentCoords[2]][npcList[id].currentCoords[0]][
       npcList[id].currentCoords[1]
-    ] = 'x';
+    ] = npcList[id].entityType;
     dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
 
     return false;
   };
 
-  const moveNpc = (id: number, indexY: number, indexX: number) => {
-    if (
-      returnMapTile(indexX + npcList[id].currentCoords[1], indexY + npcList[id].currentCoords[0]) &&
-      isWithinLeash(id)
-    ) {
+  const moveNpc = (id: number, indexChangeY: number, indexChangeX: number) => {
+    const indexX = indexChangeX + npcList[id].currentCoords[1];
+    const indexY = indexChangeY + npcList[id].currentCoords[0];
+
+    if (returnMapTile(indexX, indexY) && isWithinLeash(id)) {
       replaceMapTileOnMove(id, indexX, indexY);
       setTilePlacedOn(id, indexX, indexY);
 
       npcList[id].currentCoords = [
-        npcList[id].currentCoords[0] + indexY,
-        npcList[id].currentCoords[1] + indexX,
+        npcList[id].currentCoords[0] + indexChangeY,
+        npcList[id].currentCoords[1] + indexChangeX,
         npcList[id].currentCoords[2],
       ];
     }
   };
 
   const isWithinLeash = (id: number) => {
+    /* THIS IS BROKEN 
+      npcs stop once they hit any edge of the leash
+    */
     return (
       npcList[id].currentCoords[0] - 1 - npcList[id].spawnCoords[0] < npcList[id].leash &&
       npcList[id].currentCoords[0] + 1 - npcList[id].spawnCoords[0] < npcList[id].leash &&

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { AppState, useAppDispatch, useAppSelector } from '../../../Store/AppState';
+import { AppState, useAppDispatch, useAppSelector } from '../../../../Store/AppState';
 import './Inventory.scss';
 import { ItemComponent } from './ItemComponent';
 
@@ -11,9 +11,8 @@ const Inventory = () => {
   let currentIndex: number = 0;
 
   useEffect(() => {
-    console.log(document.getElementById(`inv-item-${currentIndex}`));
     document.getElementById(`inv-item-${currentIndex}`)?.focus();
-  }, [isInventoryVisible]);
+  }, [currentIndex, isInventoryVisible]);
 
   useEffect(() => {
     document.addEventListener('keydown', toggleIsGameRunning, false);

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import { connect } from 'react-redux';
 import { PureComponent } from 'react';
 import { GameEngine } from './Engine';
@@ -6,8 +5,9 @@ import Systems from './systems';
 import Entities from './Entities/Entities';
 import './Game.scss';
 import './Tiles.scss';
+import { Inventory } from './components/Interfaces/Inventory/Inventory';
+import { UserInterface } from './components/Interfaces/UserInterface/UserInterface';
 import { AppState } from '..';
-import { Inventory } from './components/Inventory/Inventory';
 
 interface Props {
   isInventoryVisible: boolean;
@@ -26,7 +26,8 @@ export class ReactGame extends PureComponent<Props> {
             running={!this.props.isInventoryVisible}
           />
         </div>
-        {this.props.isInventoryVisible ? <Inventory /> : <></>}
+        <Inventory />
+        <UserInterface />
       </>
     );
   }

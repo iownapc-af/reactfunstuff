@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { store } from '../..';
 import { PlayerInteraction } from './PlayerInteraction';
-import { PlayerMovement, resetPlayerPosition } from './PlayerMovement';
+import { PlayerMovement } from './PlayerMovement';
 
 export type PlayerDirection = 'north' | 'west' | 'south' | 'east';
 
@@ -33,7 +33,9 @@ const InputHandler = (entities: any, { input }: any) => {
         break;
 
       case '`':
-        resetPlayerPosition();
+        // resetPlayerPosition();
+        const newInventory = store.getState().player.inventory;
+        newInventory.push({ id: 0, amount: 1 });
         break;
 
       case 'b':

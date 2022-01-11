@@ -1,5 +1,6 @@
 import { store } from '../..';
 import { Doors } from '../components/Door';
+import { npcList, questList } from '../Entities/Lists';
 import { PlayerDirection } from './InputHandler';
 
 const PlayerInteraction = () => {
@@ -38,11 +39,38 @@ const PlayerInteraction = () => {
 
         break;
       }
+
       case 'q':
+        store.dispatch({ type: 'SET_DIALOG_TEXT', setDialogText: getDialog() });
+        store.dispatch({ type: 'SET_DIALOG_VISIBILITY', setDialogVisibility: true });
         break;
       case 'M':
         break;
     }
+  };
+
+  const getDialog = () => {
+    let num = 0;
+
+    const npcId = npcList.filter((npc) => {
+      return (
+        npc.currentCoords.toString() === `${moveDirection[player.direction].coord},${player.map}`
+      );
+    })[0].id;
+
+    const quest = questList.filter((t_quest) => {
+      num = t_quest.playerProgress;
+      return [
+        t_quest.questGiverId === npcId && t_quest.playerProgress < t_quest.questSteps.length - 1,
+        t_quest.id,
+      ];
+    })[0];
+
+    if (quest.questRequirements[quest.playerProgress].bool()) {
+      quest.playerProgress += 1;
+    }
+
+    return quest.questSteps[num].dialog;
   };
 
   determineInteractionType();
