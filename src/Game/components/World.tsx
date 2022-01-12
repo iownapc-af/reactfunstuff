@@ -30,12 +30,16 @@ const World = () => {
     // }
 
     switch (gameWorld[worldIndex][indexY][indexX]) {
+      case '1':
+        return gridsquare('banana', indexY, indexX, worldIndex);
       case ' ':
         return gridsquare('empty', indexY, indexX, worldIndex);
       case '#':
         return gridsquare('border', indexY, indexX, worldIndex);
       case ':':
         return gridsquare('door', indexY, indexX, worldIndex);
+      case 'B':
+        return gridsquare('banana', indexY, indexX, worldIndex);
       case 'b':
         return gridsquare('building', indexY, indexX, worldIndex);
       case 'e':

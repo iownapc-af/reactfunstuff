@@ -34,8 +34,6 @@ const InputHandler = (entities: any, { input }: any) => {
 
       case '`':
         // resetPlayerPosition();
-        const newInventory = store.getState().player.inventory;
-        newInventory.push({ id: 0, amount: 1 });
         break;
 
       case 'b':

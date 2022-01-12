@@ -35,6 +35,9 @@ const questList: Quests[] = [
     questRequirements: [
       {
         bool: () => {
+          const map = store.getState().overworld;
+          map[0][8][12] = 'B';
+          store.dispatch({ type: 'UPDATE_MAP', updateMap: map });
           return true;
         },
       },
@@ -77,10 +80,15 @@ const questList: Quests[] = [
 ];
 
 const itemList = [
-  { id: 0, name: 'Banana', description: 'Banana' },
-  { id: 1, name: 'metI', description: 'Test Item 2' },
-  { id: 2, name: 'COBWeef', description: 'Beef from a spider cow' },
-  { id: 5, name: 'Gold', description: 'Gold Piece' },
+  { id: 0, name: 'Banana', description: 'Banana', tileCharacter: 'B' },
+  { id: 1, name: 'metI', description: 'Test Item 2', tileCharacter: '' },
+  { id: 2, name: 'COBWeef', description: 'Beef from a spider cow', tileCharacter: '' },
+  { id: 5, name: 'Gold', description: 'Gold Piece', tileCharacter: '' },
 ];
 
-export { npcList, questList, itemList };
+const groundItemsList = [
+  { id: 0, stackSize: 1, coord: [8, 12, 0], placedOnTile: 'e' },
+  { id: 0, stackSize: 5, coord: [22, 23, 0], placedOnTile: 'e' },
+];
+
+export { npcList, questList, itemList, groundItemsList };

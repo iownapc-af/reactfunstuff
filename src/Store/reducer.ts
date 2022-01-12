@@ -65,7 +65,7 @@ export const defaultState: State = {
       'wwtttttttttttttttttttttttttttttteetttttttttttttttttttteeettttttttttt'.split(''),
       'wwtttttttttttttttttttttttttttttttetttttttttttttttttttteeettttttttttt'.split(''),
       'wwtttttttttttttttttttttttttttteeeetttttttttttttttttttteeettttttttttt'.split(''),
-      'wwttttttttttttttttttttteeeeeettttttttttttttttttttttttteeettttttttttt'.split(''),
+      'wwttttttttttttttttttttteeeeeeeettttttttttttttttttttttteeettttttttttt'.split(''),
       'wwtttttttttttttttttttttteeeeettwwwwtttwwwwttttttttttttMMMttttttttttt'.split(''),
       'wwtttttttttttttttttttttteeeeettwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
       'wwwwwMttttttttttttttttttwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'.split(''),
