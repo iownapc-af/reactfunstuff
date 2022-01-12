@@ -9,6 +9,9 @@ export type PlayerDirection = 'north' | 'west' | 'south' | 'east';
 // eslint-disable
 const InputHandler = (entities: any, { input }: any) => {
   const { payload } = input.find((x: any) => x.name === 'onKeyDown') || {};
+  const [isDialogVisible] = [store.getState().isDialogVisible];
+
+  if (isDialogVisible) return entities;
 
   if (payload) {
     switch (payload.key) {
@@ -33,7 +36,7 @@ const InputHandler = (entities: any, { input }: any) => {
         break;
 
       case '`':
-        // resetPlayerPosition();
+        // debug button
         break;
 
       case 'b':

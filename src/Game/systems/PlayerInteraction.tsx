@@ -2,15 +2,12 @@ import { store } from '../..';
 import { Doors } from '../components/Door';
 import { groundItemsList, npcList, questList } from '../Entities/Lists';
 import { PlayerDirection } from './InputHandler';
+import { questCheckProgressible } from './QuestFunctions';
 
 export const InteractableObjects = ['B', '1'];
 
 const PlayerInteraction = () => {
-  const [player, currentGameWorld, isDialogVisible] = [
-    store.getState().player,
-    store.getState().overworld,
-    store.getState().isDialogVisible,
-  ];
+  const [player, currentGameWorld] = [store.getState().player, store.getState().overworld];
 
   const moveDirection: { [K in PlayerDirection]: { tile: string; coord: string } } = {
     north: {
@@ -51,10 +48,12 @@ const PlayerInteraction = () => {
         break;
 
       case 'q':
-        if (!isDialogVisible) {
-          store.dispatch({ type: 'SET_DIALOG_TEXT', setDialogText: getDialog() });
-          store.dispatch({ type: 'SET_DIALOG_VISIBILITY', setDialogVisibility: true });
-        }
+        store.dispatch({
+          type: 'SET_DIALOG_TEXT',
+          setDialogSpeaker: getDialog().speaker,
+          setDialogText: getDialog().text,
+        });
+        store.dispatch({ type: 'SET_DIALOG_VISIBILITY', setDialogVisibility: true });
         break;
       case 'M':
         break;
@@ -81,31 +80,32 @@ const PlayerInteraction = () => {
     if (index !== -1) {
       newInventory[index].amount += itemToAdd.amount;
     } else {
-      newInventory.push(itemToAdd);
+      newInventory.push({ id: itemToAdd.id, amount: itemToAdd.amount });
     }
 
     currentGameWorld[itemToAdd.groundItemCoord[2]][itemToAdd.groundItemCoord[0]][
       itemToAdd.groundItemCoord[1]
     ] = 'e';
+
+    questCheckProgressible(null);
   };
 
   const getDialog = () => {
-    let num = 0;
-
     const npcId = npcList.filter((npc) => {
       return npc.currentCoords.toString() === moveDirection[player.direction].coord;
     })[0].id;
 
     const quest = questList.filter((t_quest) => {
-      return t_quest.questGiverId === npcId && t_quest.playerProgress < t_quest.questSteps.length; // max number of steps
+      return t_quest.questGiverId === npcId && t_quest.playerProgress < t_quest.questSteps.length;
     })[0];
 
-    num = quest.playerProgress;
-    if (quest.questRequirements[quest.playerProgress].bool()) {
-      quest.playerProgress += 1;
-    }
+    const num = quest.playerProgress;
+    questCheckProgressible(quest.id);
 
-    return quest.questSteps[num].dialog;
+    return {
+      speaker: npcList[quest.questGiverId].name,
+      text: quest.questSteps[num].dialog,
+    };
   };
 
   determineInteractionType();

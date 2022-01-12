@@ -9,5 +9,5 @@ export type Action =
   | { type: 'UPDATE_MAP'; updateMap: string[][][] }
   | { type: 'SET_PLAYER_TILE_PLACED'; setPlayerTilePlaced: string }
   | { type: 'SET_DIALOG_VISIBILITY'; setDialogVisibility: boolean }
-  | { type: 'SET_DIALOG_TEXT'; setDialogText: string[] }
+  | { type: 'SET_DIALOG_TEXT'; setDialogSpeaker: string; setDialogText: string[] }
   | { type: 'SET_INVENTORY_VISIBILITY'; setInventoryVisibility: boolean };

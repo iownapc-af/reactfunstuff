@@ -3,7 +3,11 @@ import { Action } from './action';
 
 interface State {
   isDialogVisible: boolean;
-  dialogText: string[];
+  dialog: {
+    speaker: string | null;
+    text: string[] | null;
+  };
+
   isInventoryVisible: boolean;
 
   indexMap: number;
@@ -24,7 +28,11 @@ interface State {
 
 export const defaultState: State = {
   isDialogVisible: false,
-  dialogText: [],
+  dialog: {
+    speaker: null,
+    text: null,
+  },
+
   isInventoryVisible: false,
 
   /*
@@ -280,7 +288,10 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
     case 'SET_DIALOG_TEXT':
       return {
         ...state,
-        dialogText: action.setDialogText,
+        dialog: {
+          speaker: action.setDialogSpeaker,
+          text: action.setDialogText,
+        },
       };
     case 'SET_INVENTORY_VISIBILITY':
       return {

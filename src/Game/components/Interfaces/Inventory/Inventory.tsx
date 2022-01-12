@@ -33,6 +33,7 @@ const Inventory = () => {
         case 'ArrowDown':
           if (currentIndex < playerInventoryItems.length - 1) currentIndex += 1;
           break;
+        case 'Escape':
         case 'b':
           dispatch({ type: 'SET_INVENTORY_VISIBILITY', setInventoryVisibility: false });
           break;

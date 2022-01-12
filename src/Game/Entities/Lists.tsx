@@ -1,6 +1,37 @@
-import { store } from '../..';
+import {
+  questCheckPlayerInventory,
+  questPlaceItemsOnMap,
+  questSetProgression,
+} from '../systems/QuestFunctions';
 
-const npcList = [
+interface Npc {
+  id: number;
+  entityType: string;
+  name: string;
+  spawnCoords: number[];
+  currentCoords: number[];
+  leash: number;
+  health: number;
+  tilePlacedOn: string;
+}
+
+interface Dialog {
+  // id: number;
+  // questId: number;
+  dialog: string[];
+  dialogStep: number;
+}
+
+interface Quests {
+  id: number;
+  name: string;
+  questGiverId: number;
+  questSteps: Dialog[];
+  questRequirements: { progressionEligible: () => boolean }[];
+  playerProgress: number;
+}
+
+const npcList: Npc[] = [
   {
     id: 0,
     entityType: 'q',
@@ -11,16 +42,17 @@ const npcList = [
     health: 1,
     tilePlacedOn: 'q',
   },
+  {
+    id: 1,
+    entityType: 'q',
+    name: 'Dad?',
+    spawnCoords: [6, 4, 0],
+    currentCoords: [6, 4, 0],
+    leash: -1,
+    health: 1,
+    tilePlacedOn: 'q',
+  },
 ];
-
-interface Quests {
-  id: number;
-  name: string;
-  questGiverId: number;
-  questSteps: { dialog: string[] }[];
-  questRequirements: { bool: () => boolean }[];
-  playerProgress: number;
-}
 
 const questList: Quests[] = [
   {
@@ -28,30 +60,28 @@ const questList: Quests[] = [
     name: 'First Quest',
     questGiverId: 0,
     questSteps: [
-      { dialog: ['Hello.', 'Can you retrieve me some banananana?', 'Please banana.'] },
-      { dialog: ['Get BANANA'] },
-      { dialog: ['Thank for banana.', 'Take big stick.'] },
+      {
+        dialog: ['Hello.', 'Can you retrieve me some banananana?', 'Please banana.'],
+        dialogStep: 0,
+      },
+      { dialog: ['Get BANANA'], dialogStep: 0 },
+      { dialog: ['Thank for banana.', 'Take big stick.'], dialogStep: 0 },
     ],
     questRequirements: [
       {
-        bool: () => {
-          const map = store.getState().overworld;
-          map[0][8][12] = 'B';
-          store.dispatch({ type: 'UPDATE_MAP', updateMap: map });
+        progressionEligible: () => {
+          questPlaceItemsOnMap(0);
           return true;
         },
       },
       {
-        bool: () => {
-          return (
-            Object.values(store.getState().player.inventory).filter(
-              (item) => item.id === 0 && item.amount > 0
-            ).length > 0
-          );
+        progressionEligible: () => {
+          if (questCheckPlayerInventory(0, 1)) questSetProgression(0);
+          return questCheckPlayerInventory(0, 1);
         },
       },
       {
-        bool: () => {
+        progressionEligible: () => {
           return true;
         },
       },
@@ -61,16 +91,47 @@ const questList: Quests[] = [
   {
     id: 1,
     name: 'test second quest',
-    questGiverId: 0,
-    questSteps: [{ dialog: ['Oi'] }, { dialog: ['Ooga.. Ooga Booga..'] }],
+    questGiverId: 1,
+    questSteps: [
+      { dialog: ['Oi'], dialogStep: 0 },
+      {
+        dialog: [
+          'Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..Ooga.. Ooga Booga..',
+        ],
+        dialogStep: 0,
+      },
+    ],
     questRequirements: [
       {
-        bool: () => {
+        progressionEligible: () => {
+          // return questList[0].playerProgress === 3;
+          return true;
+        },
+      },
+      {
+        progressionEligible: () => {
+          return false;
+        },
+      },
+    ],
+    playerProgress: 0,
+  },
+  {
+    id: 2,
+    name: 'Two Quests From The SAME GUY',
+    questGiverId: 0,
+    questSteps: [
+      { dialog: ['My second quest for you is...', 'Go away.'], dialogStep: 0 },
+      { dialog: ['Ooga.. Ooga Booga..'], dialogStep: 0 },
+    ],
+    questRequirements: [
+      {
+        progressionEligible: () => {
           return questList[0].playerProgress === 3;
         },
       },
       {
-        bool: () => {
+        progressionEligible: () => {
           return false;
         },
       },
@@ -87,8 +148,9 @@ const itemList = [
 ];
 
 const groundItemsList = [
-  { id: 0, stackSize: 1, coord: [8, 12, 0], placedOnTile: 'e' },
-  { id: 0, stackSize: 5, coord: [22, 23, 0], placedOnTile: 'e' },
+  { id: 0, itemId: 0, stackSize: 1, coord: [8, 12, 0], placedOnTile: 'e' },
+  { id: 1, itemId: 5, stackSize: 5, coord: [22, 23, 0], placedOnTile: 'e' },
 ];
 
 export { npcList, questList, itemList, groundItemsList };
+export type { Dialog, Quests };
