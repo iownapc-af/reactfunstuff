@@ -29,8 +29,6 @@ const UserInterface = () => {
     }
   };
 
-  console.log(dialog);
-
   return (
     <>
       {isDialogVisible ? (
