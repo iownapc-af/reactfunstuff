@@ -11,7 +11,7 @@ export const Doors = [
   },
   {
     currentCoords: '5,7,1',
-    newPlayerCoords: [7, 6],
+    newPlayerCoords: [8, 6],
     newRoomIndex: 0,
   },
   {

@@ -37,6 +37,10 @@ const PlayerInteraction = () => {
 
         if (door[0] !== undefined) {
           const map = door[0].newRoomIndex;
+          store.dispatch({
+            type: 'UPDATE_PLAYER_COORDS',
+            updatePlayerCoords: [door[0].newPlayerCoords[0], door[0].newPlayerCoords[1]],
+          });
           store.dispatch({ type: 'UPDATE_PLAYER_MAP', updatePlayerMap: map });
         }
 
@@ -47,7 +51,7 @@ const PlayerInteraction = () => {
         pickupItem(getItemToAddToInventory(moveDirection[player.direction]));
         break;
 
-      case 'q':
+      case 'q': {
         const dialog = getDialog();
         store.dispatch({
           type: 'SET_DIALOG_TEXT',
@@ -56,6 +60,7 @@ const PlayerInteraction = () => {
         });
         store.dispatch({ type: 'SET_DIALOG_VISIBILITY', setDialogVisibility: true });
         break;
+      }
       case 'M':
         break;
     }

@@ -97,7 +97,7 @@ export const defaultState: State = {
       '#   111:111    #                                                   #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
-      '#   p                                                              #'.split(''),
+      '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
       '#                                                                  #'.split(''),
