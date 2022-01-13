@@ -48,10 +48,11 @@ const PlayerInteraction = () => {
         break;
 
       case 'q':
+        const dialog = getDialog();
         store.dispatch({
           type: 'SET_DIALOG_TEXT',
-          setDialogSpeaker: getDialog().speaker,
-          setDialogText: getDialog().text,
+          setDialogSpeaker: dialog.speaker,
+          setDialogText: dialog.text,
         });
         store.dispatch({ type: 'SET_DIALOG_VISIBILITY', setDialogVisibility: true });
         break;

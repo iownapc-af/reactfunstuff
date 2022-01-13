@@ -53,6 +53,15 @@ const questCheckProgressible = (questId: number | null) => {
     if (quest.questRequirements[quest.playerProgress].progressionEligible()) {
       questSetProgression(quest.id);
     }
+  } else {
+    for (const quest in questList) {
+      if (
+        questList[quest].playerProgress > 0 &&
+        questList[quest].questRequirements[questList[quest].playerProgress].progressionEligible()
+      ) {
+        questSetProgression(questList[quest].id);
+      }
+    }
   }
 };
 
