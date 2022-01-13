@@ -44,6 +44,8 @@ const World = () => {
         return gridsquare('building', indexY, indexX, worldIndex);
       case 'e':
         return gridsquare('dirt', indexY, indexX, worldIndex);
+      case 'f':
+        return gridsquare('furniture', indexY, indexX, worldIndex);
       case 'M':
         return gridsquare('boulder', indexY, indexX, worldIndex);
       case 'p':

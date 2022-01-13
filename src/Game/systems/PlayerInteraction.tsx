@@ -1,6 +1,5 @@
 import { store } from '../..';
-import { Doors } from '../components/Door';
-import { groundItemsList, npcList, questList } from '../Entities/Lists';
+import { groundItemsList, npcList, questList, Doors } from '../Entities/Lists';
 import { PlayerDirection } from './InputHandler';
 import { questCheckProgressible } from './QuestFunctions';
 

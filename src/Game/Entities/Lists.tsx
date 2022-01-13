@@ -152,5 +152,28 @@ const groundItemsList = [
   { id: 1, itemId: 5, stackSize: 5, coord: [22, 23, 0], placedOnTile: 'e' },
 ];
 
-export { npcList, questList, itemList, groundItemsList };
+const Doors = [
+  {
+    currentCoords: '5,8,0',
+    newPlayerCoords: [7, 6],
+    newRoomIndex: 1,
+  },
+  {
+    currentCoords: '23,25,0',
+    newPlayerCoords: [3, 3],
+    newRoomIndex: 2,
+  },
+  {
+    currentCoords: '5,7,1',
+    newPlayerCoords: [8, 6],
+    newRoomIndex: 0,
+  },
+  {
+    currentCoords: '8,8,2',
+    newPlayerCoords: [22, 25],
+    newRoomIndex: 0,
+  },
+];
+
+export { npcList, questList, itemList, groundItemsList, Doors };
 export type { Dialog, Quests };
