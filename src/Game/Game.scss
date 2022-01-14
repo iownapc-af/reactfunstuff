@@ -8,11 +8,16 @@
 }
 
 .game-render-wrapper {
-  margin: 0 auto;
   position: absolute;
   width: 1360px;
   height: 760px;
   overflow: hidden;
+}
+
+.gameWorld {
+  margin: 0 auto;
+  width: 1360px;
+  height: 760px;
 }
 
 .gridRow {

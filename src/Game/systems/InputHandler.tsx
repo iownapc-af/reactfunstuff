@@ -12,12 +12,12 @@ const InputHandler = (entities: any, { input }: any) => {
   const [isDialogVisible] = [store.getState().isDialogVisible];
 
   // crap solution to putting player in map on first load
-  const [player, gameWorld] = [store.getState().player, store.getState().overworld];
-  if (gameWorld[player.map][player.yCoordinate][player.xCoordinate] !== 'p') {
-    const updatedGameWorld = gameWorld;
-    updatedGameWorld[player.map][player.yCoordinate][player.xCoordinate] = 'p';
-    store.dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
-  }
+  // const [player, gameWorld] = [store.getState().player, store.getState().overworld];
+  // if (gameWorld[player.map][player.yCoordinate][player.xCoordinate] !== 'p') {
+  //   const updatedGameWorld = gameWorld;
+  //   updatedGameWorld[player.map][player.yCoordinate][player.xCoordinate] = 'p';
+  //   store.dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
+  // }
 
   if (isDialogVisible) return entities;
 

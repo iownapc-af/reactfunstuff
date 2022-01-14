@@ -63,50 +63,19 @@ const World = () => {
     }
   };
 
-  const renderX = (indexY: number, row: string[]) => {
-    return (
-      <div className="gridRow" key={`${indexY - 1}`}>
-        {row.map((column: unknown, indexX: number) => {
-          if (gameWorld[player.map][indexY].length < 34 || player.xCoordinate < 15) {
-            while (indexX < 34) {
-              return mapGridType(indexX, indexY, player.map);
-            }
-          } else if (player.xCoordinate > gameWorld[player.map][indexY].length - 20) {
-            while (indexX > gameWorld[player.map][indexY].length - 35) {
-              return mapGridType(indexX, indexY, player.map);
-            }
-          } else {
-            while (
-              indexX > player.xCoordinate - 15 &&
-              indexX < gameWorld[player.map][indexY].length
-            ) {
-              return mapGridType(indexX, indexY, player.map);
-            }
-          }
-        })}
-      </div>
-    );
-  };
-
   const renderWorld = () => {
     return (
-      <>
+      <div className="gameWorld" id="gameworld">
         {gameWorld[player.map]?.map((row, indexY) => {
-          if (gameWorld[player.map].length < 21 || player.yCoordinate < 10) {
-            while (indexY < 20) {
-              return renderX(indexY, row);
-            }
-          } else if (player.yCoordinate > gameWorld[player.map].length - 10) {
-            while (indexY > gameWorld[player.map].length / 2) {
-              return renderX(indexY, row);
-            }
-          } else {
-            while (indexY > player.yCoordinate - 10 && indexY < player.yCoordinate + 30) {
-              return renderX(indexY, row);
-            }
-          }
+          return (
+            <div className="gridRow" key={`${indexY - 1}`}>
+              {row.map((column: unknown, indexX: number) => {
+                return mapGridType(indexX, indexY, player.map);
+              })}
+            </div>
+          );
         })}
-      </>
+      </div>
     );
   };
 

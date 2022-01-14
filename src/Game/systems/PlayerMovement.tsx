@@ -1,4 +1,5 @@
 import { store } from '../..';
+import { Camera } from './Camera';
 import { PlayerDirection } from './InputHandler';
 
 const PlayerMovement = (
@@ -49,11 +50,13 @@ const PlayerMovement = (
       const updatedGameWorld = gameWorld;
 
       updatedGameWorld[currentGameWorld][playerY][playerX] = tilePlayerPlacedOn;
-      setTilePlacedOn(playerY + yChange, playerX + xChange);
+      // setTilePlacedOn(playerY + yChange, playerX + xChange);
       playerX += xChange;
       playerY += yChange;
 
-      updatedGameWorld[currentGameWorld][playerY][playerX] = 'p';
+      // updatedGameWorld[currentGameWorld][playerY][playerX] = 'p';
+
+      console.log(updatedGameWorld);
 
       store.dispatch({ type: 'UPDATE_PLAYER_MAP', updatePlayerMap: currentGameWorld });
       store.dispatch({
@@ -61,6 +64,7 @@ const PlayerMovement = (
         updatePlayerCoords: [playerX, playerY],
       });
       store.dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
+      Camera();
     }
 
     store.dispatch({ type: 'UPDATE_PLAYER_DIRECTION', updatePlayerDirection: playerDirection });
