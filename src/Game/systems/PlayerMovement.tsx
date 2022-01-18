@@ -33,13 +33,6 @@ const PlayerMovement = (
     currentGameWorld = 4;
   };
 
-  const setTilePlacedOn = (indexY: number, indexX: number) => {
-    store.dispatch({
-      type: 'SET_PLAYER_TILE_PLACED',
-      setPlayerTilePlaced: gameWorld[currentGameWorld][indexY][indexX],
-    });
-  };
-
   const movePlayer = (xChange: number, yChange: number, direction: PlayerDirection) => {
     playerDirection = direction;
     if (isNpcContact(playerX + xChange, playerY + yChange)) {
@@ -47,23 +40,14 @@ const PlayerMovement = (
     }
 
     if (isValidMove(playerX + xChange, playerY + yChange)) {
-      const updatedGameWorld = gameWorld;
 
-      updatedGameWorld[currentGameWorld][playerY][playerX] = tilePlayerPlacedOn;
-      // setTilePlacedOn(playerY + yChange, playerX + xChange);
       playerX += xChange;
       playerY += yChange;
 
-      // updatedGameWorld[currentGameWorld][playerY][playerX] = 'p';
-
-      console.log(updatedGameWorld);
-
-      store.dispatch({ type: 'UPDATE_PLAYER_MAP', updatePlayerMap: currentGameWorld });
       store.dispatch({
         type: 'UPDATE_PLAYER_COORDS',
         updatePlayerCoords: [playerX, playerY],
       });
-      store.dispatch({ type: 'UPDATE_MAP', updateMap: updatedGameWorld });
       Camera();
     }
 

@@ -1,5 +1,9 @@
 .player {
-  min-width: 40px;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 999;
+  background: url("../res/player/walkSouth.gif") no-repeat no-repeat;
 }
 
 .south {

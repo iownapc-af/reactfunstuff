@@ -17,6 +17,8 @@ interface State {
     direction: PlayerDirection;
     xCoordinate: number;
     yCoordinate: number;
+    xScreen: number;
+    yScreen: number;
     tilePlacedOn: string;
     map: number;
     health: number;
@@ -151,6 +153,8 @@ export const defaultState: State = {
     direction: 'south',
     xCoordinate: 4,
     yCoordinate: 8,
+    xScreen: 160,
+    yScreen: 320,
     tilePlacedOn: 'e',
     map: 0,
     health: 100,
@@ -176,6 +180,8 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: state.player.direction,
           xCoordinate: action.updatePlayerCoords[0],
           yCoordinate: action.updatePlayerCoords[1],
+          xScreen: state.player.xScreen,
+          yScreen: state.player.yScreen,
           tilePlacedOn: state.player.tilePlacedOn,
           map: state.player.map,
           health: state.player.health,
@@ -191,6 +197,8 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: state.player.direction,
           xCoordinate: state.player.xCoordinate,
           yCoordinate: state.player.yCoordinate,
+          xScreen: state.player.xScreen,
+          yScreen: state.player.yScreen,
           tilePlacedOn: state.player.tilePlacedOn,
           map: state.player.map,
           health: state.player.health,
@@ -206,6 +214,8 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: action.updatePlayerDirection,
           xCoordinate: state.player.xCoordinate,
           yCoordinate: state.player.yCoordinate,
+          xScreen: state.player.xScreen,
+          yScreen: state.player.yScreen,
           tilePlacedOn: state.player.tilePlacedOn,
           map: state.player.map,
           health: state.player.health,
@@ -221,6 +231,8 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: state.player.direction,
           xCoordinate: state.player.xCoordinate,
           yCoordinate: state.player.yCoordinate,
+          xScreen: state.player.xScreen,
+          yScreen: state.player.yScreen,
           tilePlacedOn: state.player.tilePlacedOn,
           map: action.updatePlayerMap,
           health: state.player.health,
@@ -241,6 +253,8 @@ export const Reducer = (state: State = defaultState, action: Action): State => {
           direction: state.player.direction,
           xCoordinate: state.player.xCoordinate,
           yCoordinate: state.player.yCoordinate,
+          xScreen: state.player.xScreen,
+          yScreen: state.player.yScreen,
           tilePlacedOn: action.setPlayerTilePlaced,
           map: state.player.map,
           health: state.player.health,
